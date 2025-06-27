@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class rollPhysic : MonoBehaviour
@@ -5,6 +6,7 @@ public class rollPhysic : MonoBehaviour
     public float WSforce = 5f;
     public float ADforce = 2f;
     public float QEforce = 5f;
+    public float maxSpeed = 5f;
 
     public float jumpForce = 10f;
     private Rigidbody rb;
@@ -14,22 +16,25 @@ public class rollPhysic : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         EulerAngleVelocity = new Vector3(100, 0, 0);
+        rb.maxAngularVelocity = maxSpeed;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        // ! Kaldırılacak, sadece test için burada
+        rb.maxAngularVelocity = maxSpeed;
         if (Input.GetKey(KeyCode.D))
         {
-            //rb.AddRelativeTorque(Vector3.right * ADforce);
-            Quaternion deltaRot = Quaternion.Euler(EulerAngleVelocity * Time.deltaTime);
-            rb.MoveRotation(rb.rotation * deltaRot);
+            rb.AddRelativeTorque(Vector3.right * ADforce);
+            //Quaternion deltaRot = Quaternion.Euler(EulerAngleVelocity * Time.deltaTime);
+            //rb.MoveRotation(rb.rotation * deltaRot);
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            //rb.AddRelativeTorque(Vector3.left * ADforce);
-            Quaternion deltaRot = Quaternion.Euler(-EulerAngleVelocity * Time.deltaTime);
-            rb.MoveRotation(rb.rotation * deltaRot);
+            rb.AddRelativeTorque(Vector3.left * ADforce);
+            //Quaternion deltaRot = Quaternion.Euler(-EulerAngleVelocity * Time.deltaTime);
+            //rb.MoveRotation(rb.rotation * deltaRot);
         }
         else if (Input.GetKey(KeyCode.W))
         {
