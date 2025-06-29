@@ -32,6 +32,8 @@ public class TapeHeadController : MonoBehaviour
     {
         tempTape = Instantiate(tapePartPrefab, tapeEnd.transform.position, Quaternion.identity);
         tapeEnd.GetComponent<HingeJoint>().connectedBody = tempTape.GetComponent<Rigidbody>();
+        tempTape.GetComponent<HingeJoint>().connectedBody = rollPhysic.Instance.GetComponent<Rigidbody>();
+        tapeEnd = tempTape;
     }
 
     void DeleteNode()

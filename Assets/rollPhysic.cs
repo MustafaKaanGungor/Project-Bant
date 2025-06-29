@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class rollPhysic : MonoBehaviour
 {
+    public static rollPhysic Instance { private set; get; }
     public float WSforce = 5f;
     public float ADforce = 2f;
     public float QEforce = 5f;
@@ -11,6 +12,10 @@ public class rollPhysic : MonoBehaviour
     public float jumpForce = 10f;
     private Rigidbody rb;
     Vector3 EulerAngleVelocity;
+    void Awake()
+    {
+        Instance = this;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

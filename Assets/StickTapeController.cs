@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class StickTapeController : MonoBehaviour
 {
@@ -36,7 +35,7 @@ public class StickTapeController : MonoBehaviour
         {
             grapplePoint = raycastHit.point;
             tapeHead = Instantiate(tapeHeadPrefab, grapplePoint, Quaternion.identity);
-            tapeHead.GetComponent<TapeHeadController>();
+            tapeHead.GetComponent<HingeJoint>().connectedBody = player.GetComponent<Rigidbody>();
         }
     }
 
