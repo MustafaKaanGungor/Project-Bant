@@ -69,8 +69,6 @@ public class SCC_Wheel : MonoBehaviour {
 
     }
 
-    public Transform wheelModel;        //  Wheel model.
-
     private float wheelRotation = 0f;       //  Current wheel rotation X axis
     internal bool isGrounded = false;       //  Is this wheel grounded or not?
     internal float totalSlip = 0f;      //  Total slipage.
@@ -78,27 +76,6 @@ public class SCC_Wheel : MonoBehaviour {
     internal float wheelRPMToSpeed = 0f;        //  RPM to speed converstaion.
 
     private void Awake() {
-
-        //  If wheel model is not selected, return.
-        if (!wheelModel) {
-
-            Debug.LogError(transform.name + " wheel of the " + Drivetrain.transform.name + " is missing wheel model. This wheel is disabled");
-            enabled = false;
-            return;
-
-        }
-
-        //  Creating pivot point for the selected wheel model.
-        GameObject fixedModel = new GameObject(wheelModel.name);
-        fixedModel.transform.position = wheelModel.position;
-        fixedModel.transform.SetParent(Rigid.transform);
-        fixedModel.transform.localRotation = Quaternion.identity;
-        fixedModel.transform.localScale = Vector3.one;
-
-        foreach (Transform go in wheelModel.GetComponentsInChildren<Transform>())
-            go.SetParent(fixedModel.transform);
-
-        wheelModel = fixedModel.transform;
 
     }
 
@@ -132,13 +109,7 @@ public class SCC_Wheel : MonoBehaviour {
     /// </summary>
     private void WheelAlign() {
 
-        if (!wheelModel) {
 
-            Debug.LogError(transform.name + " wheel of the " + Drivetrain.transform.name + " is missing wheel model. This wheel is disabled");
-            enabled = false;
-            return;
-
-        }
 
         RaycastHit hit;
         WheelHit CorrespondingGroundHit;
@@ -148,7 +119,7 @@ public class SCC_Wheel : MonoBehaviour {
 
         if (Physics.Raycast(ColliderCenterPoint, -WheelCollider.transform.up, out hit, (WheelCollider.suspensionDistance + WheelCollider.radius) * transform.localScale.y) && !hit.collider.isTrigger && !hit.transform.IsChildOf(Rigid.transform)) {
 
-            wheelModel.transform.position = hit.point + (WheelCollider.transform.up * WheelCollider.radius) * transform.localScale.y;
+            
             float extension = (-WheelCollider.transform.InverseTransformPoint(CorrespondingGroundHit.point).y - WheelCollider.radius) / WheelCollider.suspensionDistance;
             Debug.DrawLine(CorrespondingGroundHit.point, CorrespondingGroundHit.point + WheelCollider.transform.up * (CorrespondingGroundHit.force / Rigid.mass), extension <= 0.0 ? Color.magenta : Color.white);
             Debug.DrawLine(CorrespondingGroundHit.point, CorrespondingGroundHit.point - WheelCollider.transform.forward * CorrespondingGroundHit.forwardSlip * 2f, Color.green);
@@ -156,13 +127,11 @@ public class SCC_Wheel : MonoBehaviour {
 
         } else {
 
-            wheelModel.transform.position = Vector3.Lerp(wheelModel.transform.position, ColliderCenterPoint - (WheelCollider.transform.up * WheelCollider.suspensionDistance) * transform.localScale.y, Time.deltaTime * 10f);
 
         }
 
         wheelRotation += WheelCollider.rpm * 6 * Time.deltaTime;
-        wheelModel.transform.rotation = WheelCollider.transform.rotation * Quaternion.Euler(wheelRotation, WheelCollider.steerAngle, WheelCollider.transform.rotation.z);
-
+        
     }
 
 }

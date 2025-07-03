@@ -41,7 +41,7 @@ public class SCC_Drivetrain : MonoBehaviour {
         public SCC_Wheel wheelCollider;
 
         public bool isSteering = false;
-        [Range(-45f, 45f)] public float steeringAngle = 25f;
+        [Range(-90f, 90f)] public float steeringAngle = 90f;
         public bool isTraction = false;
         public bool isBrake = false;
         public bool isHandbrake = false;
@@ -81,8 +81,12 @@ public class SCC_Drivetrain : MonoBehaviour {
 
     private float timerForReverse = 0f;     //  Detecting reverse gear.
     private bool appliedBrake = false;
+    
+    public float turnSpeed = 1000000;
 
-    private void FixedUpdate() {
+
+    private void FixedUpdate()
+    {
 
         Engine();
         ApplySteering();
@@ -120,7 +124,20 @@ public class SCC_Drivetrain : MonoBehaviour {
     /// Applies steering to the steering wheels..
     /// </summary>
     private void ApplySteering() {
+        Debug.Log(speed);
+        if (speed <= 3)
+        {
+            /*Quaternion turnRotation;
 
+            float turn = InputProcessor.inputs.steerInput * turnSpeed * Time.deltaTime;
+
+            // Make this into a rotation in the y axis.
+            turnRotation = Quaternion.Euler(0f, turn, 0f);
+
+            // Apply this rotation to the rigidbody's rotation.
+            Rigid.MoveRotation(Rigid.rotation * turnRotation);*/
+            transform.Rotate(new Vector3(0, InputProcessor.inputs.steerInput * 2, 0));
+        }
         //  Getting all steerable wheels and set their steering angles related to player's input.
         for (int i = 0; i < wheels.Length; i++) {
 

@@ -66,7 +66,6 @@ public class SCC_DrivetrainEditor : Editor {
 
                         WheelCollider newWheelCollider = SCC_CreateWheelCollider.CreateWheelCollider(driveTrainScript.gameObject, wheels[i].wheelTransform);
                         wheels[i].wheelCollider = newWheelCollider.gameObject.GetComponent<SCC_Wheel>();
-                        wheels[i].wheelCollider.wheelModel = wheels[i].wheelTransform;
                         Debug.Log("Created wheelcollider for " + wheels[i].wheelTransform.name);
 
                     }
