@@ -17,9 +17,11 @@ public class SCC_AntiRoll : MonoBehaviour {
 
     //  Rigidbody.
     private Rigidbody rigid;
-    private Rigidbody Rigid {
+    private Rigidbody Rigid
+    {
 
-        get {
+        get
+        {
 
             if (rigid == null)
                 rigid = GetComponent<Rigidbody>();
@@ -29,6 +31,9 @@ public class SCC_AntiRoll : MonoBehaviour {
         }
 
     }
+
+    public Animator eyeAnimator;
+    public float animTreshold = 5f;
 
     //  Custom class for wheels.
     [System.Serializable]
@@ -76,10 +81,26 @@ public class SCC_AntiRoll : MonoBehaviour {
 
                 //  If wheel is grounded, apply the additional force.
                 if (groundedFL)
+                    if (antiRollForceFrontHorizontal > animTreshold)
+                    {
+                        eyeAnimator.SetBool("IsTrying", true);
+                    }
+                    else
+                    {
+                        eyeAnimator.SetBool("IsTrying", false);
+                    }
                     Rigid.AddForceAtPosition(wheels[i].leftWheel.transform.up * -antiRollForceFrontHorizontal, wheels[i].leftWheel.transform.position);
 
                 //  If wheel is grounded, apply the additional force.
                 if (groundedFR)
+                    if (antiRollForceFrontHorizontal > animTreshold)
+                    {
+                        eyeAnimator.SetBool("IsTrying", true);
+                    }
+                    else
+                    {
+                        eyeAnimator.SetBool("IsTrying", false);
+                    }
                     Rigid.AddForceAtPosition(wheels[i].rightWheel.transform.up * antiRollForceFrontHorizontal, wheels[i].rightWheel.transform.position);
 
             }
