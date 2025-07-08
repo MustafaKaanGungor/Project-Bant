@@ -29,7 +29,6 @@ public class CarJump : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("heyo");
                 rb.AddForce(Vector3.up * jumpForce);
             }
         }

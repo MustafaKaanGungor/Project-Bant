@@ -28,19 +28,19 @@ public class MovementGuide : MonoBehaviour
         {
             UIelements[1].SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             UIelements[2].SetActive(true);
         }
-        else if (Input.GetKeyUp(KeyCode.Q))
+        else if (Input.GetKeyUp(KeyCode.A))
         {
             UIelements[2].SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             UIelements[3].SetActive(true);
         }
-        else if (Input.GetKeyUp(KeyCode.E))
+        else if (Input.GetKeyUp(KeyCode.D))
         {
             UIelements[3].SetActive(false);
         }

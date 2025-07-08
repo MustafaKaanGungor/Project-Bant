@@ -124,7 +124,6 @@ public class SCC_Drivetrain : MonoBehaviour {
     /// Applies steering to the steering wheels..
     /// </summary>
     private void ApplySteering() {
-        Debug.Log(speed);
         if (speed <= 3)
         {
             /*Quaternion turnRotation;
