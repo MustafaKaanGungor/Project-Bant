@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CMF
 {
     //A very simplified controller script;
-	//This script is an example of a very simple walker controller that covers only the basics of character movement;
+    //This script is an example of a very simple walker controller that covers only the basics of character movement;
     public class SimpleWalkerController : Controller
     {
         private Mover mover;
@@ -15,15 +15,17 @@ namespace CMF
         public float jumpSpeed = 10f;
         public float gravity = 10f;
 
-		Vector3 lastVelocity = Vector3.zero;
+        Vector3 lastVelocity = Vector3.zero;
 
-		public Transform cameraTransform;
+        public Transform cameraTransform;
         CharacterInput characterInput;
         Transform tr;
+        Rigidbody rb;
 
         // Use this for initialization
         void Start()
         {
+            rb = GetComponent<Rigidbody>();
             tr = transform;
             mover = GetComponent<Mover>();
             characterInput = GetComponent<CharacterInput>();
@@ -35,7 +37,7 @@ namespace CMF
             mover.CheckForGround();
 
             //If character was not grounded int the last frame and is now grounded, call 'OnGroundContactRegained' function;
-            if(isGrounded == false && mover.IsGrounded() == true)
+            if (isGrounded == false && mover.IsGrounded() == true)
                 OnGroundContactRegained(lastVelocity);
 
             //Check whether the character is grounded and store result;
@@ -45,7 +47,7 @@ namespace CMF
 
             //Add player movement to velocity;
             _velocity += CalculateMovementDirection() * movementSpeed;
-            
+
             //Handle gravity;
             if (!isGrounded)
             {
@@ -68,8 +70,8 @@ namespace CMF
             //Add vertical velocity;
             _velocity += tr.up * currentVerticalSpeed;
 
-			//Save current velocity for next frame;
-			lastVelocity = _velocity;
+            //Save current velocity for next frame;
+            lastVelocity = _velocity;
 
             mover.SetExtendSensorRange(isGrounded);
             mover.SetVelocity(_velocity);
@@ -78,45 +80,45 @@ namespace CMF
         private Vector3 CalculateMovementDirection()
         {
             //If no character input script is attached to this object, return no input;
-			if(characterInput == null)
-				return Vector3.zero;
+            if (characterInput == null)
+                return Vector3.zero;
 
-			Vector3 _direction = Vector3.zero;
+            Vector3 _direction = Vector3.zero;
 
-			//If no camera transform has been assigned, use the character's transform axes to calculate the movement direction;
-			if(cameraTransform == null)
-			{
-				_direction += tr.right * characterInput.GetHorizontalMovementInput();
-				_direction += tr.forward * characterInput.GetVerticalMovementInput();
-			}
-			else
-			{
-				//If a camera transform has been assigned, use the assigned transform's axes for movement direction;
-				//Project movement direction so movement stays parallel to the ground;
-				_direction += Vector3.ProjectOnPlane(cameraTransform.right, tr.up).normalized * characterInput.GetHorizontalMovementInput();
-				_direction += Vector3.ProjectOnPlane(cameraTransform.forward, tr.up).normalized * characterInput.GetVerticalMovementInput();
-			}
+            //If no camera transform has been assigned, use the character's transform axes to calculate the movement direction;
+            if (cameraTransform == null)
+            {
+                _direction += tr.right * characterInput.GetHorizontalMovementInput();
+                _direction += tr.forward * characterInput.GetVerticalMovementInput();
+            }
+            else
+            {
+                //If a camera transform has been assigned, use the assigned transform's axes for movement direction;
+                //Project movement direction so movement stays parallel to the ground;
+                _direction += Vector3.ProjectOnPlane(cameraTransform.right, tr.up).normalized * characterInput.GetHorizontalMovementInput();
+                _direction += Vector3.ProjectOnPlane(cameraTransform.forward, tr.up).normalized * characterInput.GetVerticalMovementInput();
+            }
 
-			//If necessary, clamp movement vector to magnitude of 1f;
-			if(_direction.magnitude > 1f)
-				_direction.Normalize();
+            //If necessary, clamp movement vector to magnitude of 1f;
+            if (_direction.magnitude > 1f)
+                _direction.Normalize();
 
-			return _direction;
+            return _direction;
         }
 
         //This function is called when the controller has landed on a surface after being in the air;
-		void OnGroundContactRegained(Vector3 _collisionVelocity)
-		{
-			//Call 'OnLand' delegate function;
-			if(OnLand != null)
-				OnLand(_collisionVelocity);
-		}
+        void OnGroundContactRegained(Vector3 _collisionVelocity)
+        {
+            //Call 'OnLand' delegate function;
+            if (OnLand != null)
+                OnLand(_collisionVelocity);
+        }
 
         //This function is called when the controller has started a jump;
         void OnJumpStart()
         {
             //Call 'OnJump' delegate function;
-            if(OnJump != null)
+            if (OnJump != null)
                 OnJump(lastVelocity);
         }
 
@@ -138,7 +140,34 @@ namespace CMF
             return isGrounded;
         }
 
+        public void JumpToPosition(Vector3 targetPos, float trajectoryHeight)
+    {
+        velocityToSet = CalcJumpVelocity(transform.position, targetPos, trajectoryHeight);
+        //activeGrapple = true;
+        Invoke(nameof(SetVelocity), 0.1f);
     }
+
+    private Vector3 velocityToSet;
+    private void SetVelocity()
+    {
+        rb.linearVelocity = velocityToSet;
+    }
+
+    public Vector3 CalcJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y;
+
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) +
+        Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+
+        return velocityXZ + velocityY;
+    }
+    }
+    
+    
 
 }
 
