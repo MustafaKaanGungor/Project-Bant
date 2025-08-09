@@ -21,6 +21,36 @@ MonoBehaviour:
     - CompoundRendererFeature.PostProcess.StylizedDetailRenderer, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     renderersAfterPostProcess: []
+--- !u!114 &-540835299783881766
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1764679f4a49ac8448ccd6db9f1cac82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shader: {fileID: 4800000, guid: 4cb56832a6ce9ec4399036e1c9b5077b, type: 3}
+  _material: {fileID: 0}
+  _isActive: 0
+  _scaleRange: {x: 1, y: 100}
+  _noiseResolution: 512
+  _palette: {fileID: 2800000, guid: 231968c350671734b9d209a7d4e6daa3, type: 3}
+  _pattern: {fileID: 2800000, guid: 349aad560c9df8343a28deb0dad611ee, type: 3}
+  _noiseMode: 1
+  _pixelate: 1
+  _scale: 0.735
+  _frameRate: 0
+  _lutSize: 0
+  _gamma: 0
+  _frame: 0
+  _noiseTex: {fileID: 0}
+  _ditherMad: {x: 0, y: 0, z: 0, w: 0}
+  _noiseModePrev: 0
+  _lutSizePrev: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,11 +64,9 @@ MonoBehaviour:
   m_Name: Quibli Renderer
   m_EditorClassIdentifier: 
   debugShaders:
-    debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7,
-      type: 3}
+    debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
-    probeVolumeSamplingDebugComputeShader: {fileID: 7200000, guid: 53626a513ea68ce47b59dc1299fe3959,
-      type: 3}
+    probeVolumeSamplingDebugComputeShader: {fileID: 7200000, guid: 53626a513ea68ce47b59dc1299fe3959, type: 3}
   probeVolumeResources:
     probeVolumeDebugShader: {fileID: 0}
     probeVolumeFragmentationDebugShader: {fileID: 0}
@@ -49,7 +77,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
   - {fileID: -932722753685603009}
-  m_RendererFeatureMap: 3f3da5e8984d0ef3
+  - {fileID: 0}
+  m_RendererFeatureMap: 3f3da5e8984d0ef35c18946f5879646b
   m_UseNativeRenderPass: 0
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -75,3 +104,19 @@ MonoBehaviour:
   m_DepthTextureFormat: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &7738443480465414236
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f396e9ba7dea945829407a37a6a043, type: 3}
+  m_Name: DitherFx
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  _event: 600
+  _pass: {fileID: -540835299783881766}
+  _blitShader: {fileID: 4800000, guid: c17132b1f77d20942aa75f8429c0f8bc, type: 3}
