@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c074a5c771af0ac479e289193d36fec5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2655988077585873504
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Demos/Plants/Foliage Generator Presets/ExamplePlant_4.preset
+  uploadId: 766566

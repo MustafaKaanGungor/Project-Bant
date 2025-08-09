@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a71a81711a7ff934aa6c1cf0835f1816
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Utils/EditorAttributes/LICENSE
+  uploadId: 766566

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b6dc2f7b1c9d61e4091a40c4dfd4a4fa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Utils/EditorAttributes/Core/DrawerAttributes_SpecialCase/ButtonAttribute.cs
+  uploadId: 766566

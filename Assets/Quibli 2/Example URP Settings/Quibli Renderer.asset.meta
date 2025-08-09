@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 692ef9b19e9d5dd46b06c4df404ef81a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Example URP Settings/Quibli Renderer.asset
+  uploadId: 766566

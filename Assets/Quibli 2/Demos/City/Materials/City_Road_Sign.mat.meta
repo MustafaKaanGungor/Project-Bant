@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2637958cdc042224e8831e8539519575
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Demos/City/Materials/City_Road_Sign.mat
+  uploadId: 766566

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c02b542ad2f7a0b4698d11e0341b8644
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 3
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Scripts/Editor/Tooltips.cs
+  uploadId: 766566

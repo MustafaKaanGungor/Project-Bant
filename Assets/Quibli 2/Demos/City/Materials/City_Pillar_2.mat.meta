@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ac40044fe806d9240b2590b3972824fa
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Demos/City/Materials/City_Pillar_2.mat
+  uploadId: 766566

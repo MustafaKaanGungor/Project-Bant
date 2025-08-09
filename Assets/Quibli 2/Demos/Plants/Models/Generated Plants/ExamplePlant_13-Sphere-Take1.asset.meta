@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a52e5ab736db4fa47ad6ae7e677d8296
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4300000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Demos/Plants/Models/Generated Plants/ExamplePlant_13-Sphere-Take1.asset
+  uploadId: 766566

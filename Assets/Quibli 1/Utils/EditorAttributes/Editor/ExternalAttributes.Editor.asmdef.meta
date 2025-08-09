@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1428c094c32ae5f49b981a2eaf3fbd49
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203178
+  packageName: 'Quibli: Anime Shaders and Tools'
+  packageVersion: 2.5.8
+  assetPath: Assets/Quibli/Utils/EditorAttributes/Editor/ExternalAttributes.Editor.asmdef
+  uploadId: 766566
