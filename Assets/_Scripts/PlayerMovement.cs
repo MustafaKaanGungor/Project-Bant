@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isAiming = false;
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
+    [SerializeField] private float dampingMultiplier;
     private float yRotation;
     private float xRotation;
     private Vector3 thirdPersonLastDirection;
@@ -59,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float spring = 4.5f;
     [SerializeField] private float damper = 7f;
     [SerializeField] private float massScale = 4.5f;
+    private float distanceFromPoint = 0;
+    [SerializeField] private LayerMask cutterLayer;
 
 
 
@@ -85,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         GetMovementVector();
         SpeedControl();
+        CutOff();
+        //CamDamping();
 
         /*if (isAiming && !grounded)
         {
@@ -94,6 +99,25 @@ public class PlayerMovement : MonoBehaviour
         {
             aimCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = 60;
         }*/
+    }
+
+    private void CutOff()
+    {
+        if (isSwinging)
+        {
+            Debug.DrawRay(firePoint.position, (grapplePoint - firePoint.position).normalized);
+            if (Physics.Raycast(firePoint.position, (grapplePoint - firePoint.position).normalized, out RaycastHit hitInfo, distanceFromPoint, cutterLayer))
+            {
+                Debug.Log(hitInfo.collider);
+                StopSwinging();
+            }
+        }
+    }
+
+    private void CamDamping()
+    {
+        //targetPoint.transform.position = Vector3.Lerp(targetPoint.transform.position, transform.position, Time.deltaTime * dampingMultiplier); 
+        targetPoint.GetComponent<Rigidbody>().MovePosition(transform.position);
     }
 
     private void Aiming()
@@ -110,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
             targetPoint.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 
         }
-        
+
     }
 
     private void GroundCheck()
@@ -252,9 +276,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void on_fire_canceled(object sender, EventArgs e)
     {
-        isSwinging = false;
-        lineRenderer.positionCount = 0;
-        Destroy(joint);
+        StopSwinging();
     }
 
     private void on_fire_performed(object sender, EventArgs e)
@@ -290,7 +312,7 @@ public class PlayerMovement : MonoBehaviour
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = grapplePoint;
 
-            float distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
+            distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
             joint.maxDistance = distanceFromPoint * 0.8f;
             joint.minDistance = distanceFromPoint * 0.25f;
@@ -301,5 +323,12 @@ public class PlayerMovement : MonoBehaviour
 
             lineRenderer.positionCount = 2;
         }
+    }
+
+    private void StopSwinging()
+    {
+        isSwinging = false;
+        lineRenderer.positionCount = 0;
+        Destroy(joint);
     }
 }
