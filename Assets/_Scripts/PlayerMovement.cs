@@ -13,11 +13,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movementInput = Vector2.zero;
     private Vector3 moveDirection = Vector3.zero;
 
+    [Header("Visuals")]
+    [SerializeField] private GameObject playerModel;
+    [SerializeField] private float modelRollModifier = 1f;
     [Header("Ground Check")]
     [SerializeField] private float playerHeight = 4;
     [SerializeField] private LayerMask whatIsGround;
     private bool grounded = false;
-    //[SerializeField] private Vector3 boxCastSize = new Vector3(1.5f, 0.75f, 2f);
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 12;
@@ -63,8 +65,6 @@ public class PlayerMovement : MonoBehaviour
     private float distanceFromPoint = 0;
     [SerializeField] private LayerMask cutterLayer;
 
-
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -74,13 +74,10 @@ public class PlayerMovement : MonoBehaviour
         GameInput.Instance.OnAimCanceled += on_aim_canceled;
         GameInput.Instance.OnFirePerformed += on_fire_performed;
         GameInput.Instance.OnFireCanceled += on_fire_canceled;
-        GameInput.Instance.OnPullPerformed += on_pull_performed;
-
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
 
     void Update()
     {
@@ -89,16 +86,15 @@ public class PlayerMovement : MonoBehaviour
         GetMovementVector();
         SpeedControl();
         CutOff();
-        //CamDamping();
+        TapeVisual();
+    }
 
-        /*if (isAiming && !grounded)
-        {
-            aimCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = 80;
-        }
-        else
-        {
-            aimCamera.GetComponent<CinemachineCamera>().Lens.FieldOfView = 60;
-        }*/
+    private void TapeVisual()
+    {
+        Vector3 localVelocity = transform.InverseTransformDirection(rb.linearVelocity);
+        float forwardSpeed = localVelocity.z;
+        float rotationAmount = forwardSpeed * modelRollModifier;
+        playerModel.transform.Rotate(0f, -rotationAmount, 0f, Space.Self);
     }
 
     private void CutOff()
@@ -112,12 +108,6 @@ public class PlayerMovement : MonoBehaviour
                 StopSwinging();
             }
         }
-    }
-
-    private void CamDamping()
-    {
-        //targetPoint.transform.position = Vector3.Lerp(targetPoint.transform.position, transform.position, Time.deltaTime * dampingMultiplier); 
-        targetPoint.GetComponent<Rigidbody>().MovePosition(transform.position);
     }
 
     private void Aiming()
@@ -140,7 +130,6 @@ public class PlayerMovement : MonoBehaviour
     private void GroundCheck()
     {
         grounded = Physics.Raycast(transform.position, -transform.up, playerHeight * 0.5f + 0.2f, whatIsGround);
-        //grounded = Physics.CheckBox(transform.position, boxCastSize, transform.rotation, whatIsGround);
 
         if (grounded)
         {
@@ -194,7 +183,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        //TODO karakterin önüne değil dünya düzlemindeki önüne doğru güç uygulanabilir
         Vector3 newForward = new Vector3(transform.forward.x, 0, transform.forward.z);
         moveDirection = newForward.normalized * movementInput.y;
 
@@ -267,11 +255,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddTorque(torqueVector * reflection * (torqueVector.magnitude - rebalanceLimit));
         }
-    }
-
-    private void on_pull_performed(object sender, EventArgs e)
-    {
-
     }
 
     private void on_fire_canceled(object sender, EventArgs e)
