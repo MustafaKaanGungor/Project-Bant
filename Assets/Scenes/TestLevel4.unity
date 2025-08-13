@@ -11149,6 +11149,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1082740552}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
+      propertyPath: freeLookCam
+      value: 
+      objectReference: {fileID: 1082740552}
+    - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
+      propertyPath: thirdPersonCam
+      value: 
+      objectReference: {fileID: 793732949}
+    - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: modelRollModifier
       value: 0.2
       objectReference: {fileID: 0}
@@ -12878,7 +12886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082740552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15793164, y: 0.74228567, z: -0.18802895, w: 0.6234699}
+  m_LocalRotation: {x: 0.15797278, y: 0.74214923, z: -0.1879944, w: 0.6236323}
   m_LocalPosition: {x: -332.2292, y: 62.918896, z: 380.20206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18746,7 +18754,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6bf6159a53258c54f9d3edce84f6df4f, type: 2}
+  - {fileID: 2100000, guid: a1f96bce934d8c2479bff017257c3d6b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21672,7 +21680,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097837978}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15793164, y: 0.74228567, z: -0.18802896, w: 0.6234699}
+  m_LocalRotation: {x: 0.1579728, y: 0.74214923, z: -0.1879944, w: 0.6236324}
   m_LocalPosition: {x: -332.2292, y: 62.918896, z: 380.20206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
