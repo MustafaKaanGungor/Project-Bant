@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Children")]
     [SerializeField] private GameObject playerModel;
+    [SerializeField] private GameObject playerRunOutModel;
     [SerializeField] private GameObject playerCollider;
 
     [Header("Movement")]
@@ -316,6 +317,12 @@ public class PlayerMovement : MonoBehaviour
             tapeAmount = Mathf.Clamp(tapeAmount, 0, 100);
             playerModel.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(2, tapeAmount);
             playerCollider.transform.localScale = new Vector3(10 - tapeAmount / 10 + 21, 30, 10 - tapeAmount / 10 + 21);
+
+            if (tapeAmount >= 100)
+            {
+                playerModel.SetActive(false);
+                playerRunOutModel.SetActive(true);
+            }
         }
     }
 

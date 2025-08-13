@@ -10031,7 +10031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: tapeSpentMultiplier
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7748084816168059398, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18445,7 +18445,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 75
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -18471,8 +18471,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097837978}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.79037166, y: 2.97, z: -1.6558034}
+  m_LocalRotation: {x: 0.25340125, y: 0.000000014414807, z: -0.0000000037759733, w: 0.9673613}
+  m_LocalPosition: {x: -2.8203716, y: 4.4, z: -1.6558034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
