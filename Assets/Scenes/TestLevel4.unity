@@ -10006,6 +10006,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
+      propertyPath: turnSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1082740552}
@@ -18766,6 +18770,7 @@ SceneRoots:
   - {fileID: 606584962}
   - {fileID: 1082740558}
   - {fileID: 793732953}
+  - {fileID: 970973513}
   - {fileID: 1893933075}
   - {fileID: 254420335}
   - {fileID: 1399604526}
@@ -18781,7 +18786,6 @@ SceneRoots:
   - {fileID: 386579871}
   - {fileID: 186406860}
   - {fileID: 1968720731}
-  - {fileID: 970973513}
   - {fileID: 617340675}
   - {fileID: 1321568419}
   - {fileID: 867358884}

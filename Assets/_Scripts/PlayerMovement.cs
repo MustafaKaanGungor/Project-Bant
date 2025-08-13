@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 7;
     [SerializeField] private float groundDrag = 2;
+    [SerializeField] private float turnSpeed = 2;
     private Vector2 movementInput = Vector2.zero;
     private Vector3 moveDirection = Vector3.zero;
 
@@ -205,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
         }
 
-        transform.Rotate(new Vector3(0, movementInput.x * 2, 0));
+        transform.Rotate(new Vector3(0, movementInput.x * turnSpeed, 0));
         rb.useGravity = !OnSlope();
     }
 
