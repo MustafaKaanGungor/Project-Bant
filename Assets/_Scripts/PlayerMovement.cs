@@ -16,11 +16,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 7;
     [SerializeField] private float groundDrag = 2;
     [SerializeField] private float turnSpeed = 2;
+    [SerializeField] private float airMaxSpeed;
     private Vector2 movementInput = Vector2.zero;
     private Vector3 moveDirection = Vector3.zero;
 
     [Header("Visuals")]
     [SerializeField] private float modelRollModifier = 1f;
+    [SerializeField] private GameObject speedLinesEffect;
     [Header("Ground Check")]
     [SerializeField] private float playerHeight = 4;
     [SerializeField] private LayerMask whatIsGround;
@@ -102,6 +104,15 @@ public class PlayerMovement : MonoBehaviour
         float forwardSpeed = localVelocity.z;
         float rotationAmount = forwardSpeed * modelRollModifier;
         playerModel.transform.Rotate(0f, -rotationAmount, 0f, Space.Self);
+
+        if (rb.linearVelocity.magnitude > moveSpeed + 1)
+        {
+            speedLinesEffect.SetActive(true);
+        }
+        else
+        {
+            speedLinesEffect.SetActive(false);
+        }
     }
 
     private void CutOff()
@@ -226,13 +237,23 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
             }
         }
-        else
+        else if (grounded)
         {
             Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             //TODO max speed dene
             if (flatVel.magnitude > moveSpeed)
             {
                 Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
+            }
+        }
+        else
+        {
+            Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            //TODO max speed dene
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed * airMaxSpeed;
                 rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
             }
         }
