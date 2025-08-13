@@ -7,6 +7,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Components")]
     private Rigidbody rb;
 
+    [Header("Children")]
+    [SerializeField] private GameObject playerModel;
+    [SerializeField] private GameObject playerRunOutModel;
+    [SerializeField] private GameObject playerCollider;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 7;
     [SerializeField] private float groundDrag = 2;
@@ -15,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
 
     [Header("Visuals")]
-    [SerializeField] private GameObject playerModel;
     [SerializeField] private float modelRollModifier = 1f;
     [Header("Ground Check")]
     [SerializeField] private float playerHeight = 4;
@@ -40,8 +44,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Looking and Aiming")]
     [SerializeField] private GameObject targetPoint;
-    [SerializeField] private GameObject mainCamera;
-    [SerializeField] private GameObject aimCamera;
+    [SerializeField] private GameObject freeLookCam;
+    [SerializeField] private GameObject thirdPersonCam;
     private bool isAiming = false;
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
@@ -65,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float massScale = 4.5f;
     private float distanceFromPoint = 0;
     [SerializeField] private LayerMask cutterLayer;
+    private float tapeAmount = 0;
+    [SerializeField] private float tapeSpentMultiplier = 1;
 
     void Start()
     {
@@ -275,13 +281,13 @@ public class PlayerMovement : MonoBehaviour
         thirdPersonLastDirection = transform.position - mainCam.transform.position;
         thirdPersonLastDirection = new Vector3(thirdPersonLastDirection.x, 0, thirdPersonLastDirection.z);
         transform.LookAt(transform.position + thirdPersonLastDirection);
-        aimCamera.GetComponent<CinemachineCamera>().Prioritize();
+        thirdPersonCam.GetComponent<CinemachineCamera>().Prioritize();
     }
 
     private void on_aim_canceled(object sender, EventArgs e)
     {
         isAiming = false;
-        mainCamera.GetComponent<CinemachineCamera>().Prioritize();
+        freeLookCam.GetComponent<CinemachineCamera>().Prioritize();
 
     }
 
@@ -306,6 +312,17 @@ public class PlayerMovement : MonoBehaviour
             joint.massScale = 4.5f;
 
             lineRenderer.positionCount = 2;
+
+            tapeAmount += distanceFromPoint / 10 * tapeSpentMultiplier;
+            tapeAmount = Mathf.Clamp(tapeAmount, 0, 100);
+            playerModel.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(2, tapeAmount);
+            playerCollider.transform.localScale = new Vector3(10 - tapeAmount / 10 + 21, 30, 10 - tapeAmount / 10 + 21);
+
+            if (tapeAmount >= 100)
+            {
+                playerModel.SetActive(false);
+                playerRunOutModel.SetActive(true);
+            }
         }
     }
 
