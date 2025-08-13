@@ -169,7 +169,7 @@ Material:
     - _FlatRimLightAlign: 0
     - _FlatRimSize: 0.5
     - _FlatSpecularEdgeSmoothness: 0
-    - _FlatSpecularSize: 0.125
+    - _FlatSpecularSize: 0.674
     - _GlossMapScale: 1
     - _Glossiness: 0.1
     - _GlossyReflections: 1
