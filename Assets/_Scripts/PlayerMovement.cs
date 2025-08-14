@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private float modelRollModifier = 1f;
     [SerializeField] private GameObject speedLinesEffect;
+    [SerializeField] private float effectLimitMultiplier = 1f;
     [Header("Ground Check")]
     [SerializeField] private float playerHeight = 4;
     [SerializeField] private LayerMask whatIsGround;
@@ -105,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         float rotationAmount = forwardSpeed * modelRollModifier;
         playerModel.transform.Rotate(0f, -rotationAmount, 0f, Space.Self);
 
-        if (rb.linearVelocity.magnitude > moveSpeed + 1)
+        if (rb.linearVelocity.magnitude > moveSpeed * effectLimitMultiplier)
         {
             speedLinesEffect.SetActive(true);
         }
