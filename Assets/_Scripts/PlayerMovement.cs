@@ -317,6 +317,10 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, maxGrappleDistance, whatIsGround))
         {
+            if (hit.collider.CompareTag("Cup"))
+            {
+                hit.collider.GetComponent<Cup>().GetTapedIdiot();
+            }
             grapplePoint = hit.point;
 
             joint = gameObject.AddComponent<SpringJoint>();
