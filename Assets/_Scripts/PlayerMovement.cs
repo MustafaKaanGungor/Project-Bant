@@ -134,7 +134,8 @@ public class PlayerMovement : MonoBehaviour
         {
             float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
             yRotation = transform.eulerAngles.y + mouseX;
-            transform.rotation = Quaternion.Euler(0, yRotation, 0);
+            //transform.rotation = Quaternion.Euler(0, yRotation, 0);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
 
             float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
             xRotation -= mouseY;
