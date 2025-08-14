@@ -11498,7 +11498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &859350451
 Transform:
   m_ObjectHideFlags: 0
@@ -11780,7 +11780,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0, b: 0, a: 1}
+      minColor: {r: 0.6301887, g: 0, b: 0, a: 1}
       maxColor: {r: 1, g: 0.8886792, b: 0.8886792, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -17149,7 +17149,7 @@ PrefabInstance:
       objectReference: {fileID: 1082740552}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: airMaxSpeed
-      value: 2
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: freeLookCam
@@ -17157,7 +17157,7 @@ PrefabInstance:
       objectReference: {fileID: 1082740552}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: airMultiplier
-      value: 0.01
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: thirdPersonCam
