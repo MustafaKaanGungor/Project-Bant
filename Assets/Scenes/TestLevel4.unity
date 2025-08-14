@@ -17149,12 +17149,16 @@ PrefabInstance:
       objectReference: {fileID: 1082740552}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: airMaxSpeed
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: freeLookCam
       value: 
       objectReference: {fileID: 1082740552}
+    - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
+      propertyPath: airMultiplier
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 2858951363634865283, guid: 283c769308a28fc4ba33dea1e7c2f273, type: 3}
       propertyPath: thirdPersonCam
       value: 
@@ -17579,7 +17583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985475252292564, guid: 7d931555e87222947a8181fc81cabd1e, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4753890621540132, guid: 7d931555e87222947a8181fc81cabd1e, type: 3}
       propertyPath: m_RootOrder
@@ -17739,7 +17743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985475252292564, guid: 7d931555e87222947a8181fc81cabd1e, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4753890621540132, guid: 7d931555e87222947a8181fc81cabd1e, type: 3}
       propertyPath: m_RootOrder
@@ -21496,7 +21500,7 @@ GameObject:
   - component: {fileID: 1372921638}
   - component: {fileID: 1372921637}
   - component: {fileID: 1372921636}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22339,7 +22343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985475252292564, guid: 7d931555e87222947a8181fc81cabd1e, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4753890621540132, guid: 7d931555e87222947a8181fc81cabd1e, type: 3}
       propertyPath: m_RootOrder
@@ -27649,7 +27653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1985475252292564, guid: 7d931555e87222947a8181fc81cabd1e, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4753890621540132, guid: 7d931555e87222947a8181fc81cabd1e, type: 3}
       propertyPath: m_RootOrder
