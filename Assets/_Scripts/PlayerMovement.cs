@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance { get; private set; }
+
     [Header("Components")]
     private Rigidbody rb;
 
@@ -74,6 +76,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask cutterLayer;
     private float tapeAmount = 0;
     [SerializeField] private float tapeSpentMultiplier = 1;
+
+    
+    public event EventHandler OnGameEnd;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -349,6 +359,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerModel.SetActive(false);
                 playerRunOutModel.SetActive(true);
+                OnGameEnd?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -358,5 +369,10 @@ public class PlayerMovement : MonoBehaviour
         isSwinging = false;
         lineRenderer.positionCount = 0;
         Destroy(joint);
+    }
+
+    public bool IsLookingAtGrappleable()
+    {
+        return Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, maxGrappleDistance, whatIsGround);
     }
 }

@@ -28,6 +28,17 @@ public class GameInput : MonoBehaviour
         inputActions.Gameplay.Pull.performed += on_pull_performed;
     }
 
+    private void Start() {
+        PlayerMovement.Instance.OnGameEnd += on_game_ended;
+    }
+
+    private void on_game_ended(object sender, EventArgs e)
+    {
+        inputActions.Gameplay.Disable();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     private void on_aim_performed(InputAction.CallbackContext context)
     {
         OnAimPerformed?.Invoke(this, EventArgs.Empty);
