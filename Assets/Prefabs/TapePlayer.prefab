@@ -226,14 +226,17 @@ MonoBehaviour:
   moveSpeed: 20
   groundDrag: 1
   turnSpeed: 4
+  airMaxSpeed: 1.2
   modelRollModifier: 0.2
+  speedLinesEffect: {fileID: 0}
+  effectLimitMultiplier: 2
   playerHeight: 4
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
-  jumpForce: 20
+  jumpForce: 22
   jumpCooldown: 0.25
-  airMultiplier: 0.4
+  airMultiplier: 0.8
   maxSlopeAngle: 40
   reflection: 100
   stability: 0.5
@@ -248,8 +251,8 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   firePoint: {fileID: 2197748202688663281}
   maxGrappleDistance: 100
-  minDistanceMultiplier: 0.25
-  maxDistanceMultiplier: 0.8
+  minDistanceMultiplier: 0.75
+  maxDistanceMultiplier: 0.6
   spring: 4.5
   damper: 7
   massScale: 4.5
@@ -311,7 +314,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3702972113014363223}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -480,7 +483,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8608955822903979421}
   m_LocalRotation: {x: -0.1230961, y: -0, z: -0, w: 0.9923948}
-  m_LocalPosition: {x: 0, y: 0, z: 0.094}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -656,7 +659,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965614089579495219}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: bdd0e18b2e0ac3349b6693675f55b108, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

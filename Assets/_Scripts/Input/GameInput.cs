@@ -4,7 +4,7 @@ using System;
 
 public class GameInput : MonoBehaviour
 {
-    public static GameInput Instance {get; private set;}
+    public static GameInput Instance { get; private set; }
 
     private BantInput inputActions;
     public event EventHandler OnJumpPerformed;
@@ -26,9 +26,12 @@ public class GameInput : MonoBehaviour
         inputActions.Gameplay.Fire.performed += on_fire_performed;
         inputActions.Gameplay.Fire.canceled += on_fire_canceled;
         inputActions.Gameplay.Pull.performed += on_pull_performed;
+
+        Disablekeys();
     }
 
-    private void Start() {
+    private void Start()
+    {
         PlayerMovement.Instance.OnGameEnd += on_game_ended;
     }
 
@@ -69,7 +72,18 @@ public class GameInput : MonoBehaviour
         OnJumpPerformed?.Invoke(this, EventArgs.Empty);
     }
 
-    public Vector2 GetMovementVector() {
+    public Vector2 GetMovementVector()
+    {
         return inputActions.Gameplay.Movement.ReadValue<Vector2>();
+    }
+
+    public void Disablekeys()
+    {
+        inputActions.Gameplay.Disable();
+    }
+
+    public void EnableKeys()
+    {
+        inputActions.Gameplay.Enable();
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -67,15 +69,16 @@ public class PlayerMovement : MonoBehaviour
     private bool isSwinging = false;
     private Vector3 grapplePoint;
     private SpringJoint joint;
-    [SerializeField] private float minDistanceMultiplier = 0.25f;
-    [SerializeField] private float maxDistanceMultiplier = 0.8f;
-    [SerializeField] private float spring = 4.5f;
-    [SerializeField] private float damper = 7f;
-    [SerializeField] private float massScale = 4.5f;
+    [SerializeField] public float minDistanceMultiplier = 0.25f;
+    [SerializeField] public float maxDistanceMultiplier = 0.8f;
+    [SerializeField] public float spring = 4.5f;
+    [SerializeField] public float damper = 7f;
+    [SerializeField] public float massScale = 4.5f;
     private float distanceFromPoint = 0;
     [SerializeField] private LayerMask cutterLayer;
     private float tapeAmount = 0;
     [SerializeField] private float tapeSpentMultiplier = 1;
+    [SerializeField] private GameObject cuttOffTape;
 
     
     public event EventHandler OnGameEnd;
@@ -95,8 +98,6 @@ public class PlayerMovement : MonoBehaviour
         GameInput.Instance.OnFirePerformed += on_fire_performed;
         GameInput.Instance.OnFireCanceled += on_fire_canceled;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void Update()
@@ -135,6 +136,22 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log(hitInfo.collider);
                 StopSwinging();
+            }
+
+            if (Physics.Raycast(grapplePoint, transform.position - grapplePoint, out RaycastHit raycastHit, 100f))
+            {
+                if (raycastHit.collider != playerCollider.GetComponent<Collider>())
+                {
+                    Physics.Raycast(transform.position, grapplePoint - transform.position, out RaycastHit newHit, 100f, whatIsGround);
+                    
+                    AddNewStickPoint(newHit.point);
+                    SetupJoint(newHit.point);
+                }
+                else
+                {
+                    //Debug.Log(raycastHit.collider);
+                    //Debug.Log("heyo");
+                }
             }
         }
     }
@@ -181,9 +198,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isSwinging)
         {
-            lineRenderer.positionCount = 2;
+            //lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, firePoint.position);
-            lineRenderer.SetPosition(1, grapplePoint);
+            
         }
     }
 
@@ -341,14 +358,15 @@ public class PlayerMovement : MonoBehaviour
 
             distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            joint.maxDistance = distanceFromPoint * 0.8f;
-            joint.minDistance = distanceFromPoint * 0.25f;
+            joint.maxDistance = distanceFromPoint * maxDistanceMultiplier;
+            joint.minDistance = distanceFromPoint * minDistanceMultiplier;
 
-            joint.spring = 4.5f;
-            joint.damper = 7f;
-            joint.massScale = 4.5f;
+            joint.spring = spring;
+            joint.damper = damper;
+            joint.massScale = massScale;
 
             lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(lineRenderer.positionCount - 1, grapplePoint);
 
             tapeAmount += distanceFromPoint / 10 * tapeSpentMultiplier;
             tapeAmount = Mathf.Clamp(tapeAmount, 0, 100);
@@ -364,9 +382,38 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void SetupJoint(Vector3 hitpoint)
+    {
+        grapplePoint = hitpoint;
+
+        joint.connectedAnchor = grapplePoint;
+
+        distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
+
+        joint.maxDistance = distanceFromPoint * 0.8f;
+        joint.minDistance = distanceFromPoint * 0.25f;
+
+        joint.spring = 4.5f;
+        joint.damper = 7f;
+        joint.massScale = 4.5f;
+    }
+
+    private void AddNewStickPoint(Vector3 point)
+    {
+        lineRenderer.positionCount++;
+
+        lineRenderer.SetPosition(lineRenderer.positionCount - 1, grapplePoint);
+        lineRenderer.SetPosition(lineRenderer.positionCount - 2, point);
+    }
+
     private void StopSwinging()
     {
         isSwinging = false;
+        GameObject tapePart = Instantiate(cuttOffTape, targetPoint.transform.position, Quaternion.identity);
+        Vector3[] positionArray = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(positionArray);
+        List<Vector3> positionList = positionArray.ToList();
+        tapePart.GetComponent<CutOffTape>().SetTapePart(positionArray);
         lineRenderer.positionCount = 0;
         Destroy(joint);
     }

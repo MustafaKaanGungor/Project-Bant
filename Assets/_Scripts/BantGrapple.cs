@@ -13,11 +13,11 @@ public class BantGrapple : MonoBehaviour
     [SerializeField] private float maxGrappleDistance = 100;
     [SerializeField] private KeyCode swingInput = KeyCode.Mouse0;
     [SerializeField] private KeyCode grappleInput = KeyCode.Mouse1;
-    private bool isGrappling = false;
+    //private bool isGrappling = false;
     private bool isSwinging = false;
     [SerializeField] private float verticalOvershoot;
     private float grappleCdTimer = 0;
-    [SerializeField] private float grappleMaxCD = 1;
+    //[SerializeField] private float grappleMaxCD = 1;
 
     void Start()
     {
@@ -40,7 +40,7 @@ public class BantGrapple : MonoBehaviour
 
         if (Input.GetKeyDown(grappleInput) && isSwinging && grappleCdTimer <= 0)
         {
-            isGrappling = true;
+            //isGrappling = true;
             StartGrapple();
         }
 
@@ -114,7 +114,7 @@ public class BantGrapple : MonoBehaviour
     private void StopGrapple()
     {
         //oyuncuyu geri dondurmaktan çıkar
-        isGrappling = false;
+        //isGrappling = false;
         lineRenderer.enabled = false;
     }
 }
