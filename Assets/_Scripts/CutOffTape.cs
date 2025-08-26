@@ -42,6 +42,7 @@ public class CutOffTape : MonoBehaviour
         lineRenderer.positionCount = count;
         lineRenderer.SetPositions(positions);
 
+
         holdPoint = positions[positions.Length - 1];
 
         joint = gameObject.AddComponent<SpringJoint>();

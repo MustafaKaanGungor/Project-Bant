@@ -5505,9 +5505,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 70339071}
+  - component: {fileID: 70339075}
   - component: {fileID: 70339073}
   - component: {fileID: 70339072}
-  - component: {fileID: 70339075}
   m_Layer: 0
   m_Name: Better VCam
   m_TagString: Untagged
@@ -5600,6 +5600,7 @@ MonoBehaviour:
   Gain: 1
   Use2DDistance: 0
   UseCameraSpace: 0
+  SignalCombinationMode: 0
   ReactionSettings:
     m_SecondaryNoise: {fileID: 0}
     AmplitudeGain: 0
@@ -5791,7 +5792,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: 2035499260
         Label: Camera Zoom
-        OriginalLabel: 
+        OriginalLabel: Camera Zoom
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -5901,7 +5902,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: 1649889991
         Label: Rotation
-        OriginalLabel: 
+        OriginalLabel: Rotation
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -5972,7 +5973,9 @@ MonoBehaviour:
         AnimateRotationTarget: {fileID: 786183771}
         Mode: 0
         RotationSpace: 0
+        MovementMode: 0
         AnimateRotationDuration: 0.4
+        AnimatePositionSpeed: 1
         RemapCurveZero: 0
         RemapCurveOne: 1080
         AnimateX: 0
@@ -6227,7 +6230,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: -402478196
         Label: Rotate Camera
-        OriginalLabel: 
+        OriginalLabel: Rotation
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -6298,7 +6301,9 @@ MonoBehaviour:
         AnimateRotationTarget: {fileID: 132865149}
         Mode: 1
         RotationSpace: 1
+        MovementMode: 0
         AnimateRotationDuration: 0.7
+        AnimatePositionSpeed: 1
         RemapCurveZero: 0
         RemapCurveOne: -10
         AnimateX: 1
@@ -6589,7 +6594,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: 300619412
         Label: Sound
-        OriginalLabel: 
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -6957,6 +6962,7 @@ MonoBehaviour:
   Gain: 1
   Use2DDistance: 0
   UseCameraSpace: 0
+  SignalCombinationMode: 0
   ReactionSettings:
     m_SecondaryNoise: {fileID: 0}
     AmplitudeGain: 0
@@ -36185,7 +36191,9 @@ MonoBehaviour:
         Mode: 1
         Space: 0
         RandomizeRemap: 0
+        MovementMode: 0
         AnimatePositionDuration: 0.5
+        AnimatePositionSpeed: 1
         AnimatePositionTween:
           MMTweenDefinitionType: 1
           MMTweenCurve: 4
@@ -36660,7 +36668,9 @@ MonoBehaviour:
         Mode: 1
         Space: 0
         RandomizeRemap: 0
+        MovementMode: 0
         AnimatePositionDuration: 0.5
+        AnimatePositionSpeed: 1
         AnimatePositionTween:
           MMTweenDefinitionType: 1
           MMTweenCurve: 4
@@ -37135,7 +37145,9 @@ MonoBehaviour:
         Mode: 1
         Space: 0
         RandomizeRemap: 0
+        MovementMode: 0
         AnimatePositionDuration: 0.5
+        AnimatePositionSpeed: 1
         AnimatePositionTween:
           MMTweenDefinitionType: 1
           MMTweenCurve: 4
@@ -37574,7 +37586,9 @@ MonoBehaviour:
         Mode: 1
         Space: 0
         RandomizeRemap: 0
+        MovementMode: 0
         AnimatePositionDuration: 0.5
+        AnimatePositionSpeed: 1
         AnimatePositionTween:
           MMTweenDefinitionType: 1
           MMTweenCurve: 4

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Tools;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -79,8 +80,9 @@ public class PlayerMovement : MonoBehaviour
     private float tapeAmount = 0;
     [SerializeField] private float tapeSpentMultiplier = 1;
     [SerializeField] private GameObject cuttOffTape;
+    [SerializeField] private MMSquashAndStretch mMSquash;
+    public event EventHandler OnTapeAmountChange;
 
-    
     public event EventHandler OnGameEnd;
 
     private void Awake()
@@ -143,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
                 if (raycastHit.collider != playerCollider.GetComponent<Collider>())
                 {
                     Physics.Raycast(transform.position, grapplePoint - transform.position, out RaycastHit newHit, 100f, whatIsGround);
-                    
+
                     AddNewStickPoint(newHit.point);
                     SetupJoint(newHit.point);
                 }
@@ -176,7 +178,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundCheck()
     {
+
         grounded = Physics.Raycast(transform.position, -transform.up, playerHeight * 0.5f + 0.2f, whatIsGround);
+
+
 
         if (grounded)
         {
@@ -200,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, firePoint.position);
-            
+
         }
     }
 
@@ -316,13 +321,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void on_fire_canceled(object sender, EventArgs e)
     {
-        StopSwinging();
+        if (isSwinging)
+        {
+            StopSwinging();
+        }
+
     }
 
     private void on_fire_performed(object sender, EventArgs e)
     {
-        isSwinging = true;
-        StartSwinging();
+        if (IsLookingAtGrappleable())
+        {
+            isSwinging = true;
+            StartSwinging();
+        }
+
     }
 
     private void on_aim_performed(object sender, EventArgs e)
@@ -370,6 +383,7 @@ public class PlayerMovement : MonoBehaviour
 
             tapeAmount += distanceFromPoint / 10 * tapeSpentMultiplier;
             tapeAmount = Mathf.Clamp(tapeAmount, 0, 100);
+            OnTapeAmountChange?.Invoke(this, EventArgs.Empty);
             playerModel.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(2, tapeAmount);
             playerCollider.transform.localScale = new Vector3(10 - tapeAmount / 10 + 21, 30, 10 - tapeAmount / 10 + 21);
 
@@ -421,5 +435,10 @@ public class PlayerMovement : MonoBehaviour
     public bool IsLookingAtGrappleable()
     {
         return Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, maxGrappleDistance, whatIsGround);
+    }
+
+    public float HowMuchTapeLeft()
+    {
+        return 100 - tapeAmount;
     }
 }
