@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject targetPoint;
     [SerializeField] private GameObject freeLookCam;
     [SerializeField] private GameObject thirdPersonCam;
-    private bool isAiming = false;
+    private bool isAiming = true;
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
     [SerializeField] private float dampingMultiplier;
@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject cuttOffTape;
     [SerializeField] private MMSquashAndStretch mMSquash;
     public event EventHandler OnTapeAmountChange;
-
+    [SerializeField] private GameObject tapedImage;
     public event EventHandler OnGameEnd;
 
     private void Awake()
@@ -114,18 +114,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void TapeVisual()
     {
-        Vector3 localVelocity = transform.InverseTransformDirection(rb.linearVelocity);
-        float forwardSpeed = localVelocity.z;
-        float rotationAmount = forwardSpeed * modelRollModifier;
-        playerModel.transform.Rotate(0f, -rotationAmount, 0f, Space.Self);
+        if (GameManager.Instance.IsPlaying())
+        {
+            Vector3 localVelocity = transform.InverseTransformDirection(rb.linearVelocity);
+            float forwardSpeed = localVelocity.z;
+            float rotationAmount = forwardSpeed * modelRollModifier;
+            playerModel.transform.Rotate(0f, -rotationAmount, 0f, Space.Self);
 
-        if (rb.linearVelocity.magnitude > moveSpeed * effectLimitMultiplier)
-        {
-            speedLinesEffect.SetActive(true);
-        }
-        else
-        {
-            speedLinesEffect.SetActive(false);
+            if (rb.linearVelocity.magnitude > moveSpeed * effectLimitMultiplier)
+            {
+                speedLinesEffect.SetActive(true);
+            }
+            else
+            {
+                speedLinesEffect.SetActive(false);
+            }
         }
     }
 
@@ -340,18 +343,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void on_aim_performed(object sender, EventArgs e)
     {
+        isAiming = false;
+        freeLookCam.GetComponent<CinemachineCamera>().Prioritize();
+    }
+
+    private void on_aim_canceled(object sender, EventArgs e)
+    {
         isAiming = true;
         thirdPersonLastDirection = transform.position - mainCam.transform.position;
         thirdPersonLastDirection = new Vector3(thirdPersonLastDirection.x, 0, thirdPersonLastDirection.z);
         transform.LookAt(transform.position + thirdPersonLastDirection);
         thirdPersonCam.GetComponent<CinemachineCamera>().Prioritize();
-    }
-
-    private void on_aim_canceled(object sender, EventArgs e)
-    {
-        isAiming = false;
-        freeLookCam.GetComponent<CinemachineCamera>().Prioritize();
-
     }
 
     private void StartSwinging()
@@ -380,6 +382,8 @@ public class PlayerMovement : MonoBehaviour
 
             lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(lineRenderer.positionCount - 1, grapplePoint);
+
+            Instantiate(tapedImage, grapplePoint, Quaternion.Euler(new Vector3(hit.normal.x, hit.normal.y + 90, hit.normal.z + 90)));
 
             tapeAmount += distanceFromPoint / 10 * tapeSpentMultiplier;
             tapeAmount = Mathf.Clamp(tapeAmount, 0, 100);

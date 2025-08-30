@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "BantInput",
     "maps": [
         {
@@ -42,9 +43,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pull",
+                    "name": "Pause",
                     "type": "Button",
-                    "id": "043936c6-9722-4d3c-9fe9-b45371765495",
+                    "id": "be0d8b9a-86bc-4bc4-b3b0-b78667982452",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -164,8 +165,30 @@
                 },
                 {
                     "name": "",
+                    "id": "708881d0-284d-4fde-87e2-22b963d08668",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3fa907f1-1f7b-4dce-924b-e94ef8fccc72",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "565a4f2d-530c-444c-b2be-e4deced13b63",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -186,6 +209,17 @@
                 },
                 {
                     "name": "",
+                    "id": "7b6b79f1-7910-45e3-89ad-a335d28c7b90",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "486b4470-a306-42b7-97d9-1f774525eb7f",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -197,12 +231,34 @@
                 },
                 {
                     "name": "",
-                    "id": "bfd697f1-164b-4531-bfb2-d91748f9522b",
-                    "path": "<Mouse>/rightButton",
+                    "id": "2873ca92-9502-463f-8be6-1f32ce6bb7b9",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pull",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "62f80533-0284-47c6-bc98-8625a934fa91",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bfb031f3-3a0b-497a-9478-461f0452ecd8",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

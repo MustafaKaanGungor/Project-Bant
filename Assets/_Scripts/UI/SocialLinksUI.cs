@@ -3,11 +3,22 @@ using UnityEngine.UI;
 
 public class SocialLinksUI : MonoBehaviour
 {
-    [SerializeField] private Button button1;
+    [SerializeField] private Button instagram;
+    [SerializeField] private Button tiktok;
+    [SerializeField] private Button discord;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        button1.onClick.AddListener(() =>
+        instagram.onClick.AddListener(() =>
+        {
+            Application.OpenURL("");
+        });
+        tiktok.onClick.AddListener(() =>
+        {
+            Application.OpenURL("");
+        });
+        discord.onClick.AddListener(() =>
         {
             Application.OpenURL("");
         });

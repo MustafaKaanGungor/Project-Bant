@@ -12,7 +12,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnAimCanceled;
     public event EventHandler OnFirePerformed;
     public event EventHandler OnFireCanceled;
-    public event EventHandler OnPullPerformed;
+    public event EventHandler OnPausePerformed;
 
     private void Awake()
     {
@@ -25,9 +25,14 @@ public class GameInput : MonoBehaviour
         inputActions.Gameplay.Aim.canceled += on_aim_canceled;
         inputActions.Gameplay.Fire.performed += on_fire_performed;
         inputActions.Gameplay.Fire.canceled += on_fire_canceled;
-        inputActions.Gameplay.Pull.performed += on_pull_performed;
+        inputActions.Gameplay.Pause.performed += on_pause_performed;
 
         Disablekeys();
+    }
+
+    private void on_pause_performed(InputAction.CallbackContext context)
+    {
+        OnPausePerformed?.Invoke(this, EventArgs.Empty);
     }
 
     private void Start()
@@ -60,11 +65,6 @@ public class GameInput : MonoBehaviour
     private void on_fire_canceled(InputAction.CallbackContext context)
     {
         OnFireCanceled?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void on_pull_performed(InputAction.CallbackContext context)
-    {
-        OnPullPerformed?.Invoke(this, EventArgs.Empty);
     }
 
     private void on_jump_performed(InputAction.CallbackContext context)

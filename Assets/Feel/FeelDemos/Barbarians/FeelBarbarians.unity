@@ -22236,6 +22236,7 @@ MonoBehaviour:
   Gain: 1
   Use2DDistance: 0
   UseCameraSpace: 0
+  SignalCombinationMode: 0
   ReactionSettings:
     m_SecondaryNoise: {fileID: 0}
     AmplitudeGain: 0
@@ -22863,6 +22864,7 @@ MonoBehaviour:
         FloatIncrement: 1
         SetLayerWeight: 0
         TargetLayerIndex: 1
+        LayerName: 
         NewWeight: 0.5
     - rid: 1
       type: {class: MMF_Rotation, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
@@ -22941,7 +22943,9 @@ MonoBehaviour:
         AnimateRotationTarget: {fileID: 145716147}
         Mode: 0
         RotationSpace: 1
+        MovementMode: 0
         AnimateRotationDuration: 0.4
+        AnimatePositionSpeed: 1
         RemapCurveZero: 0
         RemapCurveOne: 360
         AnimateX: 0
@@ -38035,6 +38039,7 @@ MonoBehaviour:
         FloatIncrement: 1
         SetLayerWeight: 0
         TargetLayerIndex: 1
+        LayerName: 
         NewWeight: 0.5
     - rid: 1
       type: {class: MMF_Rotation, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
@@ -38113,7 +38118,9 @@ MonoBehaviour:
         AnimateRotationTarget: {fileID: 762155882}
         Mode: 0
         RotationSpace: 1
+        MovementMode: 0
         AnimateRotationDuration: 0.4
+        AnimatePositionSpeed: 1
         RemapCurveZero: 0
         RemapCurveOne: 360
         AnimateX: 0
@@ -43451,6 +43458,54 @@ PrefabInstance:
     - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
       propertyPath: 'Feedbacks.Array.data[9]'
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[0].OriginalLabel
+      value: MMBlink
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[1].OriginalLabel
+      value: Animation Parameter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[2].OriginalLabel
+      value: Cinemachine Impulse
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[3].OriginalLabel
+      value: Position
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[4].OriginalLabel
+      value: Sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[5].OriginalLabel
+      value: Sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[6].OriginalLabel
+      value: Haptic Preset
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[7].OriginalLabel
+      value: Freeze Frame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[8].OriginalLabel
+      value: Particles Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[9].OriginalLabel
+      value: Floating Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[10].OriginalLabel
+      value: Floating Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314351052678260624, guid: 9096c72bd497923479605df131852973, type: 3}
+      propertyPath: managedReferences[1779414926392557572].OriginalLabel
+      value: Spring Float
       objectReference: {fileID: 0}
     - target: {fileID: 6142139939243032202, guid: 9096c72bd497923479605df131852973, type: 3}
       propertyPath: ForceColor
