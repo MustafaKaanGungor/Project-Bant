@@ -186,7 +186,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: af41e8bae82617a4886b8891d3a98630, type: 2}
+  - {fileID: 2100000, guid: 0263821cb6d11034ea9451ab2f443b66, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -320,13 +320,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9820dd0cd01f61744955f88e00d21710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
   playerModel: {fileID: 6538668464518797368}
   playerRunOutModel: {fileID: 7956219195317422511}
   playerCollider: {fileID: 965614089579495219}
-  moveSpeed: 20
-  groundDrag: 1
-  turnSpeed: 4
-  airMaxSpeed: 1.2
   modelRollModifier: 0.2
   speedLinesEffect: {fileID: 0}
   effectLimitMultiplier: 2
@@ -359,9 +356,10 @@ MonoBehaviour:
   cutterLayer:
     serializedVersion: 2
     m_Bits: 256
-  tapeSpentMultiplier: 0.5
+  tapeSpentMultiplier: 1
   cuttOffTape: {fileID: 8724772868977595333, guid: b25e569b7194e5948a65ee3a2670d322, type: 3}
   mMSquash: {fileID: 0}
+  tapedImage: {fileID: 8407538933446203194, guid: 9c6c7bd8de0d0fb46a25f235aec8dd11, type: 3}
 --- !u!54 &8438476785763060474
 Rigidbody:
   m_ObjectHideFlags: 0
