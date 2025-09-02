@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Tools;
 using Unity.Cinemachine;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement Instance { get; private set; }
+    [Header("Stats")]
+    [SerializeField] private PlayerStatsSO playerStats;
 
     [Header("Components")]
     private Rigidbody rb;
@@ -18,10 +21,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject playerCollider;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 7;
-    [SerializeField] private float groundDrag = 2;
-    [SerializeField] private float turnSpeed = 2;
-    [SerializeField] private float airMaxSpeed;
     private Vector2 movementInput = Vector2.zero;
     private Vector3 moveDirection = Vector3.zero;
 
@@ -87,6 +86,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
         Instance = this;
     }
 
@@ -121,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
             float rotationAmount = forwardSpeed * modelRollModifier;
             playerModel.transform.Rotate(0f, -rotationAmount, 0f, Space.Self);
 
-            if (rb.linearVelocity.magnitude > moveSpeed * effectLimitMultiplier)
+            if (rb.linearVelocity.magnitude > playerStats.moveSpeed * effectLimitMultiplier)
             {
                 speedLinesEffect.SetActive(true);
             }
@@ -188,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded)
         {
-            rb.linearDamping = groundDrag;
+            rb.linearDamping = playerStats.groundDrag;
         }
         else
         {
@@ -243,7 +247,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDirection() * playerStats.moveSpeed * 20f, ForceMode.Force);
 
             if (rb.linearVelocity.y > 0)
             {
@@ -253,14 +257,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded)
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * playerStats.moveSpeed * 10, ForceMode.Force);
         }
         else
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * playerStats.moveSpeed * 10f * airMultiplier, ForceMode.Force);
         }
-
-        transform.Rotate(new Vector3(0, movementInput.x * turnSpeed, 0));
+;
         rb.useGravity = !OnSlope();
     }
 
@@ -269,18 +272,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (OnSlope() && !exitingSlope)
         {
-            if (rb.linearVelocity.magnitude > moveSpeed)
+            if (rb.linearVelocity.magnitude > playerStats.moveSpeed)
             {
-                rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
+                rb.linearVelocity = rb.linearVelocity.normalized * playerStats.moveSpeed;
             }
         }
         else if (grounded)
         {
             Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             //TODO max speed dene
-            if (flatVel.magnitude > moveSpeed)
+            if (flatVel.magnitude > playerStats.moveSpeed)
             {
-                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                Vector3 limitedVel = flatVel.normalized * playerStats.moveSpeed;
                 rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
             }
         }
@@ -288,9 +291,9 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             //TODO max speed dene
-            if (flatVel.magnitude > moveSpeed)
+            if (flatVel.magnitude > playerStats.moveSpeed)
             {
-                Vector3 limitedVel = flatVel.normalized * moveSpeed * airMaxSpeed;
+                Vector3 limitedVel = flatVel.normalized * playerStats.moveSpeed * playerStats.airMaxSpeed;
                 rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
             }
         }
