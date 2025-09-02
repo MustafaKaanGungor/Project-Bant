@@ -320,43 +320,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9820dd0cd01f61744955f88e00d21710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 0}
+  playerStats: {fileID: 11400000, guid: 55e08dbafb89a6d4f9d904d202966208, type: 2}
   playerModel: {fileID: 6538668464518797368}
   playerRunOutModel: {fileID: 7956219195317422511}
   playerCollider: {fileID: 965614089579495219}
-  modelRollModifier: 0.2
   speedLinesEffect: {fileID: 0}
-  effectLimitMultiplier: 2
-  playerHeight: 4
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 128
-  jumpForce: 22
-  jumpCooldown: 0.25
-  airMultiplier: 0.8
-  maxSlopeAngle: 40
-  reflection: 100
-  stability: 0.5
-  rebalanceLimit: 0.3
   targetPoint: {fileID: 1322559682592346742}
   freeLookCam: {fileID: 0}
   thirdPersonCam: {fileID: 0}
-  sensX: 290
-  sensY: 290
   dampingMultiplier: 1
   lineRenderer: {fileID: 9167378757268644159}
   mainCam: {fileID: 0}
   firePoint: {fileID: 2197748202688663281}
-  maxGrappleDistance: 100
-  minDistanceMultiplier: 0.75
-  maxDistanceMultiplier: 0.6
-  spring: 4.5
-  damper: 7
-  massScale: 4.5
-  cutterLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  tapeSpentMultiplier: 1
   cuttOffTape: {fileID: 8724772868977595333, guid: b25e569b7194e5948a65ee3a2670d322, type: 3}
   mMSquash: {fileID: 0}
   tapedImage: {fileID: 8407538933446203194, guid: 9c6c7bd8de0d0fb46a25f235aec8dd11, type: 3}

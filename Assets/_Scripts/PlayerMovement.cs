@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Swing and Grapple")]
     [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private Camera mainCam;
+    private Camera mainCam;
     [SerializeField] private Transform firePoint;
     private bool isSwinging = false;
     private Vector3 grapplePoint;
@@ -73,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+
+        mainCam = GameObject.FindWithTag("Camera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody>();
 
         GameInput.Instance.OnJumpPerformed += on_jump_performed;
@@ -81,6 +83,15 @@ public class PlayerMovement : MonoBehaviour
         GameInput.Instance.OnFirePerformed += on_fire_performed;
         GameInput.Instance.OnFireCanceled += on_fire_canceled;
 
+    }
+
+    void OnDestroy()
+    {
+        GameInput.Instance.OnJumpPerformed -= on_jump_performed;
+        GameInput.Instance.OnAimPerformed -= on_aim_performed;
+        GameInput.Instance.OnAimCanceled -= on_aim_canceled;
+        GameInput.Instance.OnFirePerformed -= on_fire_performed;
+        GameInput.Instance.OnFireCanceled -= on_fire_canceled;
     }
 
     void Update()

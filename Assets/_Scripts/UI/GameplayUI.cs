@@ -9,6 +9,11 @@ public class GameplayUI : MonoBehaviour
         Hide();
     }
 
+    void OnDestroy()
+    {
+        GameManager.Instance.OnStateChanged -= on_game_state_changed;
+    }
+
     private void on_game_state_changed(object sender, EventArgs e)
     {
         if (GameManager.Instance.IsPlaying())

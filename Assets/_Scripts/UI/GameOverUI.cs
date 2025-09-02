@@ -25,6 +25,11 @@ public class GameOverUI : MonoBehaviour
         Hide();
     }
 
+    void OnDestroy()
+    {
+        PlayerMovement.Instance.OnGameEnd -= on_game_end;
+    }
+
     private void on_game_end(object sender, EventArgs e)
     {
         Show();

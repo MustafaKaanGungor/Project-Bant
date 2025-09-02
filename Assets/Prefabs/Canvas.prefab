@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73d07d71a46d0a4aa970891c3846778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playButton: {fileID: 2196331055517478042}
+  retryButton: {fileID: 2196331055517478042}
   settingsButton: {fileID: 5158884926941757359}
   quitButton: {fileID: 5821192346463970788}
   settingsMenu: {fileID: 0}

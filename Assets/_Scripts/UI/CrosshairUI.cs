@@ -17,6 +17,12 @@ public class CrosshairUI : MonoBehaviour
         GameInput.Instance.OnAimCanceled += on_aim_canceled;
     }
 
+    void OnDestroy()
+    {
+        GameInput.Instance.OnAimPerformed -= on_aim_performed;
+        GameInput.Instance.OnAimCanceled -= on_aim_canceled;
+    }
+
     private void on_aim_performed(object sender, EventArgs e)
     {
         gameObject.SetActive(false);

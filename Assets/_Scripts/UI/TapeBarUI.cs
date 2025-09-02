@@ -10,6 +10,12 @@ public class TapeBarUI : MonoBehaviour
         PlayerMovement.Instance.OnTapeAmountChange += on_tape_amount_change;
     }
 
+    void OnDisable()
+    {
+        
+        PlayerMovement.Instance.OnTapeAmountChange -= on_tape_amount_change;
+    }
+
     private void on_tape_amount_change(object sender, EventArgs e)
     {
         bar.fillAmount = PlayerMovement.Instance.HowMuchTapeLeft() / 100;

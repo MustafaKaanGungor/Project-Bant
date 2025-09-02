@@ -16,7 +16,6 @@ public class GameInput : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -33,6 +32,18 @@ public class GameInput : MonoBehaviour
         inputActions.Gameplay.Pause.performed += on_pause_performed;
 
         Disablekeys();
+    }
+
+    void OnDestroy()
+    {
+        inputActions.Gameplay.Jump.performed -= on_jump_performed;
+        inputActions.Gameplay.Aim.performed -= on_aim_performed;
+        inputActions.Gameplay.Aim.canceled -= on_aim_canceled;
+        inputActions.Gameplay.Fire.performed -= on_fire_performed;
+        inputActions.Gameplay.Fire.canceled -= on_fire_canceled;
+        inputActions.Gameplay.Pause.performed -= on_pause_performed;
+
+        inputActions.Dispose();
     }
 
     private void on_pause_performed(InputAction.CallbackContext context)

@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
         Instance = this;
     }
 
@@ -30,6 +34,13 @@ public class GameManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        
+    }
+
+    void OnDisable()
+    {
+        GameInput.Instance.OnPausePerformed -= on_pause_performed;
     }
 
     private void Update()
