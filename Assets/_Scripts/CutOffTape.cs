@@ -54,9 +54,9 @@ public class CutOffTape : MonoBehaviour
         joint.maxDistance = distanceFromPoint * 0.3f;
         joint.minDistance = distanceFromPoint * 0.2f;
 
-        joint.spring = PlayerMovement.Instance.spring;
-        joint.damper = PlayerMovement.Instance.damper;
-        joint.massScale = PlayerMovement.Instance.massScale;
+        // !joint.spring = PlayerMovement.Instance.spring;
+        // !joint.damper = PlayerMovement.Instance.damper;
+        // !joint.massScale = PlayerMovement.Instance.massScale;
 
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(lineRenderer.positionCount - 1, holdPoint);

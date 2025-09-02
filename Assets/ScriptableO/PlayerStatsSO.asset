@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb76cc7723fe304f8fd8942957b42b4, type: 3}
+  m_Name: PlayerStatsSO
+  m_EditorClassIdentifier: 
+  moveSpeed: 20
+  groundDrag: 1
+  turnSpeed: 4
+  airMaxSpeed: 1.2
+  modelRollModifier: 0.2
+  effectLimitMultiplier: 2
+  playerHeight: 4
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 128
+  jumpForce: 22
+  jumpCooldown: 0.25
+  airMultiplier: 0.8
+  maxSlopeAngle: 40
+  reflection: 100
+  stability: 0.5
+  rebalanceLimit: 0.3
+  sensX: 290
+  sensY: 290
+  dampingMultiplier: 1
+  maxGrappleDistance: 100
+  minDistanceMultiplier: 0.75
+  maxDistanceMultiplier: 0.6
+  spring: 4.5
+  damper: 7
+  massScale: 4.5
+  cutterLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  tapeSpentMultiplier: 1
+  cuttOffTape: {fileID: 0}
+  tapedImage: {fileID: 0}

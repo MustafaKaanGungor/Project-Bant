@@ -25,37 +25,23 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
 
     [Header("Visuals")]
-    [SerializeField] private float modelRollModifier = 1f;
     [SerializeField] private GameObject speedLinesEffect;
-    [SerializeField] private float effectLimitMultiplier = 1f;
+
     [Header("Ground Check")]
-    [SerializeField] private float playerHeight = 4;
-    [SerializeField] private LayerMask whatIsGround;
     private bool grounded = false;
 
     [Header("Jump")]
-    [SerializeField] private float jumpForce = 12;
-    [SerializeField] private float jumpCooldown = 0.25f;
-    [SerializeField] private float airMultiplier = 0.4f;
     private bool readyToJump = true;
 
     [Header("Slope")]
-    [SerializeField] private float maxSlopeAngle = 40f;
     private RaycastHit slopeHit;
     private bool exitingSlope = false;
-
-    [Header("Rebalance")]
-    [SerializeField] private float reflection = 100f;
-    [SerializeField] private float stability = 0.5f;
-    [SerializeField] private float rebalanceLimit = 0.3f;
 
     [Header("Looking and Aiming")]
     [SerializeField] private GameObject targetPoint;
     [SerializeField] private GameObject freeLookCam;
     [SerializeField] private GameObject thirdPersonCam;
     private bool isAiming = true;
-    [SerializeField] private float sensX;
-    [SerializeField] private float sensY;
     [SerializeField] private float dampingMultiplier;
     private float yRotation;
     private float xRotation;
@@ -65,19 +51,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private Camera mainCam;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float maxGrappleDistance = 100;
     private bool isSwinging = false;
     private Vector3 grapplePoint;
     private SpringJoint joint;
-    [SerializeField] public float minDistanceMultiplier = 0.25f;
-    [SerializeField] public float maxDistanceMultiplier = 0.8f;
-    [SerializeField] public float spring = 4.5f;
-    [SerializeField] public float damper = 7f;
-    [SerializeField] public float massScale = 4.5f;
     private float distanceFromPoint = 0;
-    [SerializeField] private LayerMask cutterLayer;
     private float tapeAmount = 0;
-    [SerializeField] private float tapeSpentMultiplier = 1;
     [SerializeField] private GameObject cuttOffTape;
     [SerializeField] private MMSquashAndStretch mMSquash;
     public event EventHandler OnTapeAmountChange;
@@ -86,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -122,10 +99,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 localVelocity = transform.InverseTransformDirection(rb.linearVelocity);
             float forwardSpeed = localVelocity.z;
-            float rotationAmount = forwardSpeed * modelRollModifier;
+            float rotationAmount = forwardSpeed * playerStats.modelRollModifier;
             playerModel.transform.Rotate(0f, -rotationAmount, 0f, Space.Self);
 
-            if (rb.linearVelocity.magnitude > playerStats.moveSpeed * effectLimitMultiplier)
+            if (rb.linearVelocity.magnitude > playerStats.moveSpeed * playerStats.effectLimitMultiplier)
             {
                 speedLinesEffect.SetActive(true);
             }
@@ -141,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
         if (isSwinging)
         {
             Debug.DrawRay(firePoint.position, (grapplePoint - firePoint.position).normalized);
-            if (Physics.Raycast(firePoint.position, (grapplePoint - firePoint.position).normalized, out RaycastHit hitInfo, distanceFromPoint, cutterLayer))
+            if (Physics.Raycast(firePoint.position, (grapplePoint - firePoint.position).normalized, out RaycastHit hitInfo, distanceFromPoint, playerStats.cutterLayer))
             {
                 Debug.Log(hitInfo.collider);
                 StopSwinging();
@@ -151,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (raycastHit.collider != playerCollider.GetComponent<Collider>())
                 {
-                    Physics.Raycast(transform.position, grapplePoint - transform.position, out RaycastHit newHit, 100f, whatIsGround);
+                    Physics.Raycast(transform.position, grapplePoint - transform.position, out RaycastHit newHit, 100f, playerStats.whatIsGround);
 
                     AddNewStickPoint(newHit.point);
                     SetupJoint(newHit.point);
@@ -169,12 +146,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isAiming)
         {
-            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
+            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * playerStats.sensX;
             yRotation = transform.eulerAngles.y + mouseX;
             //transform.rotation = Quaternion.Euler(0, yRotation, 0);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
 
-            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * playerStats.sensY;
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
             targetPoint.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
@@ -186,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
     private void GroundCheck()
     {
 
-        grounded = Physics.Raycast(transform.position, -transform.up, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, -transform.up, playerStats.playerHeight * 0.5f + 0.2f, playerStats.whatIsGround);
 
 
 
@@ -224,8 +201,8 @@ public class PlayerMovement : MonoBehaviour
             readyToJump = false;
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            Invoke(nameof(ResetJump), jumpCooldown);
+            rb.AddForce(transform.up * playerStats.jumpForce, ForceMode.Impulse);
+            Invoke(nameof(ResetJump), playerStats.jumpCooldown);
         }
     }
 
@@ -261,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rb.AddForce(moveDirection.normalized * playerStats.moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * playerStats.moveSpeed * 10f * playerStats.airMultiplier, ForceMode.Force);
         }
 ;
         rb.useGravity = !OnSlope();
@@ -301,10 +278,10 @@ public class PlayerMovement : MonoBehaviour
 
     private bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, -transform.up, out slopeHit, playerHeight * 0.5f + 0.2f, whatIsGround))
+        if (Physics.Raycast(transform.position, -transform.up, out slopeHit, playerStats.playerHeight * 0.5f + 0.2f, playerStats.whatIsGround))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle <= maxSlopeAngle && angle != 0;
+            return angle <= playerStats.maxSlopeAngle && angle != 0;
         }
 
         return false;
@@ -317,11 +294,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Rebalance()
     {
-        Vector3 predictedUp = Quaternion.AngleAxis(rb.linearVelocity.magnitude * Mathf.Rad2Deg * stability / reflection, rb.angularVelocity) * transform.up;
+        Vector3 predictedUp = Quaternion.AngleAxis(rb.linearVelocity.magnitude * Mathf.Rad2Deg * playerStats.stability / playerStats.reflection, rb.angularVelocity) * transform.up;
         Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
-        if (!grounded && torqueVector.magnitude >= rebalanceLimit)
+        if (!grounded && torqueVector.magnitude >= playerStats.rebalanceLimit)
         {
-            rb.AddTorque(torqueVector * reflection * (torqueVector.magnitude - rebalanceLimit));
+            rb.AddTorque(torqueVector * playerStats.reflection * (torqueVector.magnitude - playerStats.rebalanceLimit));
         }
     }
 
@@ -362,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
     private void StartSwinging()
     {
         RaycastHit hit;
-        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, maxGrappleDistance, whatIsGround))
+        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, playerStats.maxGrappleDistance, playerStats.whatIsGround))
         {
             if (hit.collider.CompareTag("Cup"))
             {
@@ -376,19 +353,19 @@ public class PlayerMovement : MonoBehaviour
 
             distanceFromPoint = Vector3.Distance(transform.position, grapplePoint);
 
-            joint.maxDistance = distanceFromPoint * maxDistanceMultiplier;
-            joint.minDistance = distanceFromPoint * minDistanceMultiplier;
+            joint.maxDistance = distanceFromPoint * playerStats.maxDistanceMultiplier;
+            joint.minDistance = distanceFromPoint * playerStats.minDistanceMultiplier;
 
-            joint.spring = spring;
-            joint.damper = damper;
-            joint.massScale = massScale;
+            joint.spring = playerStats.spring;
+            joint.damper = playerStats.damper;
+            joint.massScale = playerStats.massScale;
 
             lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(lineRenderer.positionCount - 1, grapplePoint);
 
             Instantiate(tapedImage, grapplePoint, Quaternion.Euler(new Vector3(hit.normal.x, hit.normal.y + 90, hit.normal.z + 90)));
 
-            tapeAmount += distanceFromPoint / 10 * tapeSpentMultiplier;
+            tapeAmount += distanceFromPoint / 10 * playerStats.tapeSpentMultiplier;
             tapeAmount = Mathf.Clamp(tapeAmount, 0, 100);
             OnTapeAmountChange?.Invoke(this, EventArgs.Empty);
             playerModel.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(2, tapeAmount);
@@ -441,7 +418,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsLookingAtGrappleable()
     {
-        return Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, maxGrappleDistance, whatIsGround);
+        return Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, playerStats.maxGrappleDistance, playerStats.whatIsGround);
     }
 
     public float HowMuchTapeLeft()
