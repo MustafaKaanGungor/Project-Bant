@@ -25,15 +25,15 @@ public class TutorialManager : MonoBehaviour
         GameInput.Instance.OnJumpPerformed += on_jump_performed;
         GameInput.Instance.OnFirePerformed += on_fire_performed;
 
-        if (Joystick.current == null)
-        {
-            isJoystick = false;
-            tutorialTextsKeyboard[0].SetActive(true);
-        }
-        else
+        if (Joystick.current != null)
         {
             isJoystick = true;
             tutorialTextsJoystick[0].SetActive(true);
+        }
+        else
+        {
+            isJoystick = false;
+            tutorialTextsKeyboard[0].SetActive(true);
         }
     }
 
