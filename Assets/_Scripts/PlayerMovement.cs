@@ -5,6 +5,7 @@ using MoreMountains.Tools;
 using Unity.Cinemachine;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -61,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     public event EventHandler OnTapeAmountChange;
     [SerializeField] private GameObject tapedImage;
     public event EventHandler OnGameEnd;
+    private float camLerpValue = 0;
+    [SerializeField] private GameObject speedTrailEffect;
 
     private void Awake()
     {
@@ -131,7 +134,6 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(firePoint.position, (grapplePoint - firePoint.position).normalized);
             if (Physics.Raycast(firePoint.position, (grapplePoint - firePoint.position).normalized, out RaycastHit hitInfo, distanceFromPoint, playerStats.cutterLayer))
             {
-                Debug.Log(hitInfo.collider);
                 StopSwinging();
             }
 
@@ -157,12 +159,24 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isAiming)
         {
-            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * playerStats.sensX;
+            float mouseX = 0;
+            float mouseY = 0;
+            if (Gamepad.current != null)
+            {
+                mouseX = Input.GetAxisRaw("Horizontal") * Time.deltaTime * playerStats.sensX;
+                mouseY = Input.GetAxisRaw("Vertical") * Time.deltaTime * playerStats.sensY;
+            }
+            else
+            {
+                mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * playerStats.sensX;
+                mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * playerStats.sensY;
+            }
+            
             yRotation = transform.eulerAngles.y + mouseX;
             //transform.rotation = Quaternion.Euler(0, yRotation, 0);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
 
-            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * playerStats.sensY;
+            
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
             targetPoint.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
@@ -198,7 +212,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isSwinging)
         {
-            //lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, firePoint.position);
 
         }
@@ -251,7 +264,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * playerStats.moveSpeed * 10f * playerStats.airMultiplier, ForceMode.Force);
         }
-;
+        transform.Rotate(new Vector3(0, movementInput.x * playerStats.turnSpeed, 0));
         rb.useGravity = !OnSlope();
     }
 
@@ -260,6 +273,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (OnSlope() && !exitingSlope)
         {
+            speedTrailEffect.GetComponent<ParticleSystem>().Stop();
             if (rb.linearVelocity.magnitude > playerStats.moveSpeed)
             {
                 rb.linearVelocity = rb.linearVelocity.normalized * playerStats.moveSpeed;
@@ -267,7 +281,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (grounded)
         {
+            speedTrailEffect.GetComponent<ParticleSystem>().Stop();
             Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            thirdPersonCam.GetComponent<CinemachineThirdPersonFollow>().CameraDistance = Mathf.Lerp(6, 15, camLerpValue);
+            if (camLerpValue > 0)
+            {
+                camLerpValue -=  Time.deltaTime;
+            }
             //TODO max speed dene
             if (flatVel.magnitude > playerStats.moveSpeed)
             {
@@ -281,6 +301,22 @@ public class PlayerMovement : MonoBehaviour
             //TODO max speed dene
             if (flatVel.magnitude > playerStats.moveSpeed)
             {
+                thirdPersonCam.GetComponent<CinemachineThirdPersonFollow>().CameraDistance = Mathf.Lerp(6, 15, camLerpValue);
+                if (camLerpValue < 1)
+                {
+                    camLerpValue += 0.5f * Time.deltaTime;
+                    speedTrailEffect.GetComponent<ParticleSystem>().Play();
+                }
+                else if (camLerpValue >= 1)
+                {
+                    speedTrailEffect.GetComponent<ParticleSystem>().Play();
+                    speedTrailEffect.transform.forward = Vector3.RotateTowards(speedTrailEffect.transform.forward, -rb.linearVelocity, 1f, 1f);
+                }
+                else
+                {
+                    speedTrailEffect.GetComponent<ParticleSystem>().Stop();
+                }
+                
                 Vector3 limitedVel = flatVel.normalized * playerStats.moveSpeed * playerStats.airMaxSpeed;
                 rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
             }
