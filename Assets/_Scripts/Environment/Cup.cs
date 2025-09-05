@@ -16,6 +16,7 @@ public class Cup : MonoBehaviour
             tapedModel.SetActive(true);
             poofEffect.Play();
             isFixed = true;
+            
 
         }
     }

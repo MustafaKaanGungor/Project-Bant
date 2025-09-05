@@ -1,5 +1,6 @@
 using System;
 using MoreMountains.Feedbacks;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     private GameState currentState = GameState.MAIN_MENU;
     public event EventHandler OnStateChanged;
     [SerializeField] private GameObject mainMenuCam;
+    [SerializeField] private GameObject thirdPersonCam;
+
     [SerializeField] private MMF_Player feel;
 
     private void Awake()
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
         OnStateChanged?.Invoke(this, EventArgs.Empty);
         GameInput.Instance.EnableKeys();
         mainMenuCam.SetActive(false);
+        thirdPersonCam.GetComponent<CinemachineCamera>().Prioritize();
         feel.PlayFeedbacks();
 
         Cursor.lockState = CursorLockMode.Locked;

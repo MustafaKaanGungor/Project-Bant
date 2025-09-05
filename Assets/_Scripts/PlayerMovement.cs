@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject tapedImage;
     public event EventHandler OnGameEnd;
     private float camLerpValue = 0;
-    [SerializeField] private GameObject speedTrailEffect;
+    //[SerializeField] private GameObject speedTrailEffect;
 
     private void Awake()
     {
@@ -273,7 +273,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (OnSlope() && !exitingSlope)
         {
-            speedTrailEffect.GetComponent<ParticleSystem>().Stop();
+            //speedTrailEffect.GetComponent<ParticleSystem>().Stop();
             if (rb.linearVelocity.magnitude > playerStats.moveSpeed)
             {
                 rb.linearVelocity = rb.linearVelocity.normalized * playerStats.moveSpeed;
@@ -281,7 +281,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (grounded)
         {
-            speedTrailEffect.GetComponent<ParticleSystem>().Stop();
+            //speedTrailEffect.GetComponent<ParticleSystem>().Stop();
             Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             thirdPersonCam.GetComponent<CinemachineThirdPersonFollow>().CameraDistance = Mathf.Lerp(6, 15, camLerpValue);
             if (camLerpValue > 0)
@@ -305,16 +305,16 @@ public class PlayerMovement : MonoBehaviour
                 if (camLerpValue < 1)
                 {
                     camLerpValue += 0.5f * Time.deltaTime;
-                    speedTrailEffect.GetComponent<ParticleSystem>().Play();
+                    //speedTrailEffect.GetComponent<ParticleSystem>().Play();
                 }
                 else if (camLerpValue >= 1)
                 {
-                    speedTrailEffect.GetComponent<ParticleSystem>().Play();
-                    speedTrailEffect.transform.forward = Vector3.RotateTowards(speedTrailEffect.transform.forward, -rb.linearVelocity, 1f, 1f);
+                    //speedTrailEffect.GetComponent<ParticleSystem>().Play();
+                    //speedTrailEffect.transform.forward = Vector3.RotateTowards(speedTrailEffect.transform.forward, -rb.linearVelocity, 1f, 1f);
                 }
                 else
                 {
-                    speedTrailEffect.GetComponent<ParticleSystem>().Stop();
+                    //speedTrailEffect.GetComponent<ParticleSystem>().Stop();
                 }
                 
                 Vector3 limitedVel = flatVel.normalized * playerStats.moveSpeed * playerStats.airMaxSpeed;

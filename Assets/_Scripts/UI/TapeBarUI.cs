@@ -19,7 +19,11 @@ public class TapeBarUI : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerMovement.Instance.OnTapeAmountChange += on_tape_amount_change;
+        if (PlayerMovement.Instance != null)
+        {
+            PlayerMovement.Instance.OnTapeAmountChange += on_tape_amount_change;
+        }
+        
     }
 
     private void on_tape_amount_change(object sender, EventArgs e)
