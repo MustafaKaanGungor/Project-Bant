@@ -15,7 +15,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private int tutorialIndex = 0;
     [SerializeField] private GameObject tutorialBackground;
     [SerializeField] private bool isTutorialOn = false;
-    [SerializeField] private bool isJoystick = false;
+    [SerializeField] public bool isJoystick = false;
     [SerializeField] private bool isWPressed = false;
     [SerializeField] private bool isSPressed = false;
     [SerializeField] private bool isAPressed = false;
@@ -30,13 +30,14 @@ public class TutorialManager : MonoBehaviour
         GameInput.Instance.OnJumpPerformed += on_jump_performed;
         GameInput.Instance.OnFirePerformed += on_fire_performed;
 
-        if (Joystick.current != null)
+        if (Joystick.current != null || Input.GetJoystickNames().Length > 0)
         {
             isJoystick = true;
             tutorialTextsJoystick[0].SetActive(true);
         }
         else
         {
+            Debug.Log(Input.GetJoystickNames().Length);
             isJoystick = false;
             tutorialTextsKeyboard[0].SetActive(true);
         }

@@ -177,11 +177,13 @@ public class PlayerMovement : MonoBehaviour
             float mouseY = 0;
             if (Gamepad.current != null)
             {
+
                 mouseX = Input.GetAxisRaw("Horizontal") * Time.deltaTime * playerStats.sensX;
                 mouseY = Input.GetAxisRaw("Vertical") * Time.deltaTime * playerStats.sensY;
             }
             else
             {
+
                 mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * playerStats.sensX;
                 mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * playerStats.sensY;
             }
