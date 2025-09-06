@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb85435963d28c40a88921a0fcc5c8d, type: 3}
+  m_Name: StickSound
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: c71400768e40ed3429b40b0f8da216bd, type: 3}
+  - {fileID: 8300000, guid: d99cf258e77698c41bc934354fbd69ed, type: 3}
+  - {fileID: 8300000, guid: 6487701281091984ea583c3f59642b7d, type: 3}
+  useRandomVolume: 0
+  volume: 0
+  volumeRandom: {x: 0.5, y: 0.5}
+  useRandomPitch: 0
+  pitch: 0
+  pitchRandom: {x: 1, y: 1}
+  playOrder: 0
+  playIndex: 0
+  loop: 0
+  source: {fileID: 0}

@@ -64,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
     public event EventHandler OnGameEnd;
     private float camLerpValue = 0;
     //[SerializeField] private GameObject speedTrailEffect;
+    [SerializeField] private AudioSource stickSource1;
+    [SerializeField] private AudioSource stickSource2;
+    [SerializeField] private AudioSource stickSource3;
+    [SerializeField] private AudioSource swingSource;
 
     private void Awake()
     {
@@ -105,6 +109,16 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
         CutOff();
         TapeVisual();
+        //FadeObstacles();
+    }
+
+    private void FadeObstacles()
+    {
+        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out RaycastHit hit, 30f))
+        {
+            Material mat = hit.collider.transform.GetComponent<MeshRenderer>().material;
+            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 10);
+        }
     }
 
     private void TapeVisual()
@@ -424,6 +438,26 @@ public class PlayerMovement : MonoBehaviour
                 playerRunOutModel.SetActive(true);
                 OnGameEnd?.Invoke(this, EventArgs.Empty);
             }
+
+            swingSource.Play();
+            Invoke("PlayStickSound", 0.25f);
+        }
+    }
+
+    private void PlayStickSound()
+    {
+        int sourceToUse = UnityEngine.Random.Range(0, 3);
+        if (sourceToUse == 0)
+        {
+            stickSource1.Play();
+        }
+        else if (sourceToUse == 1)
+        {
+            stickSource2.Play();
+        }
+        else
+        {
+            stickSource3.Play();
         }
     }
 

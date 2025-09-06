@@ -6,7 +6,7 @@ public class Cup : MonoBehaviour
     [SerializeField] private GameObject brokenModel;
     [SerializeField] private GameObject tapedModel;
     [SerializeField] private VisualEffect poofEffect;
-    private bool isFixed = false;
+    public bool isFixed = false;
 
     public void GetTapedIdiot()
     {

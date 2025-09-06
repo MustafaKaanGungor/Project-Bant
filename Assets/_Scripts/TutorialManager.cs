@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using CMF;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> tutorialTextsKeyboard;
     [SerializeField] private List<GameObject> tutorialTextsJoystick;
+    [SerializeField] private Cup cup;
+    private Animator animator;
 
     [SerializeField] private int tutorialIndex = 0;
     [SerializeField] private GameObject tutorialBackground;
@@ -17,11 +20,13 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private bool isSPressed = false;
     [SerializeField] private bool isAPressed = false;
     [SerializeField] private bool isDPressed = false;
+    private bool isCompleted = false;
     private Vector2 movementInput = Vector2.zero;
 
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         GameInput.Instance.OnJumpPerformed += on_jump_performed;
         GameInput.Instance.OnFirePerformed += on_fire_performed;
 
@@ -41,7 +46,8 @@ public class TutorialManager : MonoBehaviour
     {
         if (tutorialIndex == 2)
         {
-            ChangeTutorialStep();
+            animator.SetTrigger("NextTutorial");
+            StartCoroutine(ChangeTutorialStep());
         }
     }
 
@@ -49,12 +55,15 @@ public class TutorialManager : MonoBehaviour
     {
         if (tutorialIndex == 1)
         {
-            ChangeTutorialStep();
+            animator.SetTrigger("NextTutorial");
+            StartCoroutine(ChangeTutorialStep());
         }
     }
 
-    private void ChangeTutorialStep()
+    private IEnumerator ChangeTutorialStep()
     {
+        Debug.Log("heyo??");
+        yield return new WaitForSeconds(0.5f);
         if (tutorialIndex <= tutorialTextsKeyboard.Count - 2)
         {
             if (isJoystick)
@@ -95,9 +104,20 @@ public class TutorialManager : MonoBehaviour
                 isSPressed = true;
             }
 
-            if (isWPressed && isAPressed && isDPressed)
+            if (isWPressed && isAPressed && isDPressed && !isCompleted)
             {
-                ChangeTutorialStep();
+                animator.SetTrigger("NextTutorial");
+                isCompleted = true;
+                StartCoroutine(ChangeTutorialStep());
+            }
+        }
+
+        if (tutorialIndex == 3)
+        {
+            if (cup.isFixed)
+            {
+                animator.SetTrigger("NextTutorial");
+                StartCoroutine(ChangeTutorialStep());
             }
         }
     }
