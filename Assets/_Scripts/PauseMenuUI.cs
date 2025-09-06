@@ -7,9 +7,7 @@ using UnityEngine.UI;
 public class PauseMenuUI : MonoBehaviour
 {
     [SerializeField] private Button retryButton;
-    [SerializeField] private Button settingsButton;
     [SerializeField] private Button quitButton;
-    [SerializeField] private GameObject settingsMenu;
 
     private void Awake()
     {
@@ -18,10 +16,7 @@ public class PauseMenuUI : MonoBehaviour
             Time.timeScale = 1f;
             SceneManager.LoadScene(0);
         });
-        settingsButton.onClick.AddListener(() =>
-        {
-            settingsMenu.SetActive(true);
-        });
+        
         quitButton.onClick.AddListener(() =>
         {
             Application.Quit();
