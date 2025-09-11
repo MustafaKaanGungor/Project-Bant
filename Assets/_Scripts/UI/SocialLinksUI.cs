@@ -12,15 +12,15 @@ public class SocialLinksUI : MonoBehaviour
     {
         instagram.onClick.AddListener(() =>
         {
-            Application.OpenURL("");
+            Application.OpenURL("https://www.instagram.com/woodenpillowgames/?utm_source=ig_web_button_share_sheet");
         });
         tiktok.onClick.AddListener(() =>
         {
-            Application.OpenURL("");
+            Application.OpenURL("https://woodenpillowgames.itch.io/tape-over");
         });
         discord.onClick.AddListener(() =>
         {
-            Application.OpenURL("");
+            Application.OpenURL("https://www.tiktok.com/@woodenpillow_games?is_from_webapp=1&sender_device=pc");
         });
     }
 
